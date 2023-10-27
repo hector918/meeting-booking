@@ -1,4 +1,5 @@
 const API = process.env.REACT_APP_API_URL;
+let SINGLE_USER_MODE = undefined;
 let default_fetch_options = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json",
@@ -108,9 +109,41 @@ async function fetch_post_async(url, body) {
   }
 }
 ////////////////////////////////////////////////////////
-function getUserProfile() {
-
+function getUserProfile(callback) {
+  fetch_get(`${API}/is_auth`, callback);
+  /**
+   * {email
+: 
+"zoarcn@gmail.com"
+email_verified
+: 
+true
+given_name
+: 
+"Qi"
+locale
+: 
+"zh-CN"
+name
+: 
+"Qi"
+nickname
+: 
+"zoarcn"
+picture
+: 
+"https://lh3.googleusercontent.com/a/ACg8ocL5IRRQxIy7tdf5Uxp63Ao3FGK8QRNE6e7QGw0jfKD1I2Y=s96-c"
+sid
+: 
+"qXXjULy3pmccWSgG_nQTetyHwkxvb2De"
+sub
+: 
+"google-oauth2|111054304098293084418"
+updated_at
+: 
+"2023-10-27T20:26:49.508Z"}
+   */
 }
 
 ////////////////////////////////////////////////////////
-export default {}
+export default { getUserProfile }
