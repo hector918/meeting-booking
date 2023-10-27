@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FindMeetingRoom from './pages/find-meeting-room';
+import BookingList from './pages/booking-list';
 /////////////////////////////////////////////////////
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<FindMeetingRoom />} />
+          <Route path="/callback" element={<BookingList />} />
         </Routes>
       </Router>
     </div>
