@@ -116,5 +116,16 @@ function newRoom(form, callback) {
   const body = { body: JSON.stringify(form) };
   fetch_post(`${API}/api/meeting-rooms`, body, callback);
 }
+function getAllRooms(callback) {
+  fetch_get(`${API}/api/meeting-rooms`, callback);
+}
+function getRoomById(id, callback) {
+  fetch_get(`${API}/api/meeting-rooms/${id}`, callback);
+}
 ////////////////////////////////////////////////////////
-export default { getUserProfile, newRoom }
+export default {
+  getUserProfile,
+  newRoom,
+  getAllRooms,
+  getRoomById
+}

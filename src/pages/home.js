@@ -1,8 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import RoomList from "../components/room-list";
+import srv from "../_fetch_";
 export default function Home() {
   //
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState("");
+  const [roomsInfo, setRoomsInfo] = useState([]);
+  const [roomOrderBy, setRoomOrderBy] = useState("name");
+  const [order, setOrder] = useState("asc");
+  ////////////////////////////////////////////
+  useEffect(() => {
+    setIsLoading(true);
+    srv.getAllRooms(res => {
+      if (res.payload) {
+        setRoomsInfo(res.payload);
+      }
+      if (res.error) {
+        setIsError(res.error);
+      }
+      setIsLoading(false);
+    });
+  }, [])
+  ///helper////////////////////////////////////////
 
+  ///render helper//////////////////////////////////
+  function renderPage() {
+    if (isError !== "") {
+      return <div>{isError}</div>
+    } else {
+      return <div className="panel">
+        <p className="panel-heading">Room list</p>
+        <p className="panel-tabs" onClick={handleOrderChangeClick}>
+          <span style={{ margin: "auto 0" }}>Order by</span>
+          <a href="#/" className="is-active" name="name">Name</a>
+          <a href="#/" name="capacity">capacity</a>
+          <a href="#/" name="floor">floor</a>
+        </p>
+        {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : <RoomList roomsInfo={roomsInfo} orderKey={roomOrderBy} order={order} />}
+
+      </div>
+    }
+  }
+  function handleOrderChangeClick(evt) {
+    //remove status
+    evt.currentTarget.querySelectorAll("a").forEach(el => {
+      el.classList.remove("is-active");
+    })
+    evt.target.classList.add("is-active");
+
+    setRoomOrderBy(evt.target.name);
+
+  }
+  ////////////////////////////////////////////
   return <div>
-    hello home
+    {renderPage()}
   </div>
 }
