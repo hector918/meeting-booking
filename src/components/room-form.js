@@ -109,7 +109,7 @@ export default function RoomForm({ roomId }) {
 
         />
         <span className="icon is-small is-left">
-          <i class="fa fa-users" aria-hidden="true"></i>
+          <i className="fa fa-users" aria-hidden="true"></i>
         </span>
         <span className="icon is-small is-right">
           {/* <i className="fas fa-check"></i> */}
@@ -130,7 +130,7 @@ export default function RoomForm({ roomId }) {
           onClick={handleOnSelect}
         />
         <span className="icon is-small is-left">
-          <i class="fa fa-map-signs" aria-hidden="true"></i>
+          <i className="fa fa-map-signs" aria-hidden="true"></i>
         </span>
         <span className="icon is-small is-right">
           {/* <i className="fas fa-exclamation-triangle"></i> */}

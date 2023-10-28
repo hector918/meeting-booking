@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import srv from '../_fetch_';
 import { useParams } from "react-router-dom";
+import BookingForm from "../components/booking-form";
 ////////////////////////////////////////////
-export default function RoomById({ }) {
+export default function RoomById() {
   const { id } = useParams();
   const [isError, setIsError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +21,7 @@ export default function RoomById({ }) {
       if (room) setRoomInfo(room);
       setIsLoading(false);
     })
-  }, [])
+  }, [id])
   ////render helper////////////////////////////////
   function render() {
     if (isError !== "") {
@@ -31,14 +32,17 @@ export default function RoomById({ }) {
     if (isLoading) {
       return <i className="fa fa-spinner fa-spin" aria-hidden="true"></i>
     } else {
-      return <section className="section">
-        <h4 className="title">{roomInfo.name}</h4>
-        <dl>
-          <dt>{roomInfo.capacity}</dt>
-          <dt>{roomInfo.floor}</dt>
-          <dt>{roomInfo.manager_email}</dt>
-        </dl>
-      </section>
+      return <>
+        <section className="section">
+          <h4 className="title">{roomInfo.name}</h4>
+          <dl>
+            <dt>{roomInfo.capacity}</dt>
+            <dt>{roomInfo.floor}</dt>
+            <dt>{roomInfo.manager_email}</dt>
+          </dl>
+        </section>
+        <BookingForm />
+      </>
     }
   }
   ////////////////////////////////////////////
