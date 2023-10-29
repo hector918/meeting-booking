@@ -122,10 +122,19 @@ function getAllRooms(callback) {
 function getRoomById(id, callback) {
   fetch_get(`${API}/api/meeting-rooms/${id}`, callback);
 }
+function bookAnRoom(form, callback) {
+  const body = { body: JSON.stringify(form) };
+  fetch_post(`${API}/api/bookings`, body, callback);
+}
+function getBookingByRoomId(meetingRoomId, callback) {
+  fetch_get(`${API}/api/meeting-rooms/${meetingRoomId}/bookings`, callback);
+}
 ////////////////////////////////////////////////////////
 export default {
   getUserProfile,
   newRoom,
   getAllRooms,
-  getRoomById
+  getRoomById,
+  bookAnRoom,
+  getBookingByRoomId
 }

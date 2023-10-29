@@ -2,26 +2,48 @@ import React, { useEffect, useState } from "react";
 import srv from '../_fetch_';
 import { useParams } from "react-router-dom";
 import BookingForm from "../components/booking-form";
+import BookingList from "../components/booking-list";
 ////////////////////////////////////////////
 export default function RoomById() {
   const { id } = useParams();
   const [isError, setIsError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [roomInfo, setRoomInfo] = useState({});
+  const [bookings, setBookings] = useState([]);
+  ////////////////////////////////////////////
+  let bookingScrollIntoView;
   ////////////////////////////////////////////
   if (id === undefined) setIsError('id is broken.')
   useEffect(() => {
     setIsLoading(true);
-    if (id !== undefined) srv.getRoomById(id, res => {
-      console.log(res);
-      if (res.error !== undefined) {
-        setIsError(res.error);
-      }
-      const { room } = res.payload;
-      if (room) setRoomInfo(room);
-      setIsLoading(false);
-    })
+    if (id !== undefined) {
+      srv.getRoomById(id, res => {
+        if (res.error !== undefined) {
+          setIsError(res.error);
+        }
+        const { room } = res.payload;
+        if (room) setRoomInfo(room);
+
+      });
+      /////////////
+      srv.getBookingByRoomId(id, res => {
+        console.log("bookings", res.payload);
+        setBookings(res.payload);
+        setIsLoading(false);
+      });
+    }
   }, [id])
+  ////event handler////////////////////////////////
+  const book_an_room = (form, callback) => {
+
+    srv.bookAnRoom(form, res => {
+      if (res.payload) {
+        setBookings(res.payload);
+      }
+      //error handle by children component
+      callback(res)
+    })
+  }
   ////render helper////////////////////////////////
   function render() {
     if (isError !== "") {
@@ -36,15 +58,22 @@ export default function RoomById() {
         <section className="section">
           <h4 className="title">{roomInfo.name}</h4>
           <dl>
-            <dt>{roomInfo.capacity}</dt>
-            <dt>{roomInfo.floor}</dt>
-            <dt>{roomInfo.manager_email}</dt>
+            <dt><strong>Capacity: </strong>{roomInfo.capacity}</dt>
+            <dt><strong>Floor: </strong>{roomInfo.floor}</dt>
+            <dt><strong>Manger e-mail: </strong><a href={`mailto:${roomInfo.manager_email}`} > {roomInfo.manager_email}</a></dt>
           </dl>
-        </section>
+        </section >
         <div className="container">
-          <BookingForm />
-        </div>
+          <div className="columns">
+            <div className="column ">
+              <BookingForm meetingRoomId={id} book_an_room={book_an_room} bookingScrollIntoView={bookingId => bookingScrollIntoView(bookingId)} />
+            </div>
+            <div className="column in_mobile_mode_set_fixed_height_parent">
+              <BookingList scrollToId={(fn) => bookingScrollIntoView = fn} bookings={bookings} />
+            </div>
 
+          </div>
+        </div>
       </>
     }
   }

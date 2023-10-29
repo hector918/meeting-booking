@@ -1,13 +1,17 @@
-import { useRef, useState } from "react"
-
-export default function BookingForm({ id }) {
+import { useEffect, useRef, useState } from "react"
+import srv from '../_fetch_';
+///////////////////////////////////////////////////
+export default function BookingForm({ meetingRoomId, id, book_an_room, bookingScrollIntoView }) {
   const [meetingName, setMeetingName] = useState("");
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState(formatDateTime(new Date()));
   const [endDate, setEndDate] = useState("");
   const [datetimeConstraint, setDatetimeConstraint] = useState(30);
-  const [meetingNameInputField, startDateInputField, endDateInputField, attendeesInputField, buttonField, attendeesTagsDiv, tagsInput] = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
+  const [meetingNameInputField, startDateInputField, endDateInputField, attendeesInputField, buttonField, attendeesTagsDiv, tagsInput, endDateInput] = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
   const [isLoading, setIsLoading] = useState(false);
   ////event//////////////////////////////////////
+  useEffect(() => {
+    endDateInput.current.min = formatDateTime(new Date(startDate));
+  }, [startDate])
   const onTagsInputEnter = evt => {
     if (evt.keyCode === 13) handleAddAttendees(evt.target.value);
   }
@@ -48,18 +52,53 @@ export default function BookingForm({ id }) {
       div.append(tag);
     }
   }
-
+  const getAttendees = () => {
+    const tags = attendeesTagsDiv.current.querySelectorAll("span");
+    const emails = [];
+    for (let tag of tags) emails.push(tag.innerHTML);
+    return emails;
+  }
   const handleSubmit = (evt) => {
-    setIsLoading(true)
+    setIsLoading(true);
     const fieldList = {
       meetingName: meetingNameInputField.current, startDate: startDateInputField.current,
       endDate: endDateInputField.current,
-      summary: buttonField
+      summary: buttonField.current
     }
     for (let key in fieldList) resetFieldStatus(fieldList[key]);
-
+    const form = {
+      meetingName: getComponentFromFieldSet(fieldList["meetingName"]).input.value,
+      startDate: getComponentFromFieldSet(fieldList["startDate"]).input.value,
+      endDate: getComponentFromFieldSet(fieldList["endDate"]).input.value,
+      attendees: getAttendees(),
+      meetingRoomId: meetingRoomId
+    }
     if (id === undefined) {
       //new
+      book_an_room(form, res => {
+        if (res.error !== undefined) {
+          //error
+          const { input, help } = getComponentFromFieldSet(buttonField.current);
+          console.log(res)
+          help.innerHTML = res.error;
+          help.classList.add("is-danger");
+          if (Array.isArray(res.is_overlap)) {
+            if (typeof bookingScrollIntoView === "function") {
+              bookingScrollIntoView(res.is_overlap[0].id);
+            }
+          }
+          //
+          for (let key in res.detail) if (fieldList[key] !== undefined && res.detail[key].ret === false) {
+            const { input, help } = getComponentFromFieldSet(fieldList[key]);
+            input?.classList.add("is-danger");
+            help?.classList.add("is-danger");
+            help.innerHTML = res.detail[key].explain;
+            if (res.detail[key]['constraint']) setDatetimeConstraint(res.detail[key]['constraint']);
+          }
+        } else if (res.payload !== undefined) {
+          //success
+        }
+      })
 
     } else {
       //edit
@@ -90,7 +129,7 @@ export default function BookingForm({ id }) {
     today.setDate(today.getDate() + future);
     return today;
   }
-  const formatDateTime = (date) => {
+  function formatDateTime(date) {
     var year = date.getFullYear();
     var month = (date.getMonth() + 1).toString().padStart(2, '0');
     var day = date.getDate().toString().padStart(2, '0');
@@ -115,7 +154,7 @@ export default function BookingForm({ id }) {
     }
   }
   ////html//////////////////////////////////
-  return <section className="section">
+  return <section className="section in_mobile_mode_set_fixed_height">
     <div ref={meetingNameInputField} className="field">
       <label className="label">Meeting name</label>
       <div className="control has-icons-left has-icons-right">
@@ -162,6 +201,7 @@ export default function BookingForm({ id }) {
       <label className="label">End date</label>
       <div className="control has-icons-left has-icons-right ">
         <input
+          ref={endDateInput}
           className="input"
           type="datetime-local"
           min={formatDateTime(new Date(startDate))}
@@ -194,7 +234,7 @@ export default function BookingForm({ id }) {
           onKeyDown={onTagsInputEnter}
         />
         <span className="icon is-small is-left">
-          <i className="fa fa-info-circle" aria-hidden="true"></i>
+          <i className="fa fa-envelope-o" aria-hidden="true"></i>
         </span>
         <span className="icon is-medium is-right is-clickable" onClick={mouseClickTagsInputEnter}>
           <i className="fa fa-arrow-left" aria-hidden="true"></i>

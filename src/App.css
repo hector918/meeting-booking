@@ -4,3 +4,25 @@
 i{
   font-style: normal;
 }
+
+@media screen and (max-width: 769px),print {
+  
+  .in_mobile_mode_set_fixed_height{
+    height: 100%;
+    padding-top: 0 !important;
+    padding-bottom: 0!important;
+    overflow-y: scroll;
+    position: relative;
+
+  }
+}
+@media screen and (min-width: 769px),print {
+  .in_mobile_mode_set_fixed_height_parent{
+    height: 70vh;
+  }
+  .in_mobile_mode_set_fixed_height{
+    overflow-y: scroll;
+    height: 100%;
+    position: relative;
+  }
+}
