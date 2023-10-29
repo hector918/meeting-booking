@@ -41,7 +41,10 @@ export default function RoomById() {
             <dt>{roomInfo.manager_email}</dt>
           </dl>
         </section>
-        <BookingForm />
+        <div className="container">
+          <BookingForm />
+        </div>
+
       </>
     }
   }
