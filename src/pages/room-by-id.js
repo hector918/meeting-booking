@@ -12,7 +12,6 @@ export default function RoomById() {
   const [isLoading, setIsLoading] = useState(false);
   const [roomInfo, setRoomInfo] = useState({});
   const [bookings, setBookings] = useState([]);
-
   ////////////////////////////////////////////
   let bookingScrollIntoView;
   ////////////////////////////////////////////
@@ -21,12 +20,9 @@ export default function RoomById() {
     setIsLoading(true);
     if (id !== undefined) {
       srv.getRoomById(id, res => {
-        if (res.error !== undefined) {
-          setIsError(res.error);
-        }
+        if (res.error !== undefined) setIsError(res.error);
         const { room } = res.payload;
         if (room) setRoomInfo(room);
-
       });
       /////////////
       srv.getBookingByRoomId(id, res => {
@@ -37,10 +33,9 @@ export default function RoomById() {
   }, [id])
   ////event handler////////////////////////////////
   const book_an_room = (form, callback) => {
-
     srv.bookAnRoom(form, res => {
       if (res.payload) {
-        setBookings(res.payload);
+        setBookings(res.payload.bookings);
       }
       //error handle by children component
       callback(res)

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import srv from "../_fetch_";
 import BookingList from "../components/booking-list";
+/////////////////////////////////////////
 export default function BookingListPage() {
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsloading] = useState(false);
@@ -21,13 +22,8 @@ export default function BookingListPage() {
       setIsloading(false);
     });
   }, []);
-  ////event helper//////////////////////////////////
-  const handleBookingClick = (bookingId) => {
-    console.log(bookingId)
-    // navigate("/meetingrooms/" + id, { state: { startDate: pre_startDate, endDate: pre_endDate } });
-  }
   ///////////////////////////////////////////
   return <div className="section">
-    {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : <BookingList bookings={bookings} scrollToId={() => { }} handleBookingClick={handleBookingClick} />}
+    {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : <BookingList bookings={bookings} scrollToId={() => { }} />}
   </div>
 }

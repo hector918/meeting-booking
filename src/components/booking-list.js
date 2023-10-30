@@ -1,10 +1,12 @@
 import { useRef } from "react";
 import BookingDetail from "./booking-detail";
+import { useNavigate } from "react-router-dom";
 var itm_idx = 1;
 const timeline_itm_id_prefix = "timeline-item-with-booking-id";
-
-export default function BookingList({ bookings, scrollToId, handleBookingClick }) {
+/////////////////////////////////////////////////
+export default function BookingList({ bookings, scrollToId }) {
   const timelineSection = useRef(null);
+  const navigate = useNavigate();
   //联合上层当上层表达有重复BOOKING，将会调用函数滚动页面
   scrollToId(scrollIntoViewWithBookingId);
   function scrollIntoViewWithBookingId(bookingId) {
@@ -22,13 +24,16 @@ export default function BookingList({ bookings, scrollToId, handleBookingClick }
       element.firstChild.classList.remove("is-danger");
     }, 5_000);
   }
+  const handleBookingClick = (bookingId) => {
+    navigate("/bookings/" + bookingId);
+  }
   /////render helper///////////////////////////////
   function renderTimeLine(bookings) {
     const elements = [];
     let current_date = "";
     for (let booking of bookings) {
       const startDate = new Date(booking.start_date).toLocaleDateString();
-      if (current_date != startDate) {
+      if (current_date !== startDate) {
         current_date = startDate;
         elements.push(renderAnHeader(startDate));
       }

@@ -1,8 +1,10 @@
 var itm_idx = 1;
 const timeline_itm_id_prefix = "timeline-item-with-booking-id";
-
 export default function BookingDetail({ booking, handleBookingClick }) {
   ///helper/////////////////////////////////////
+  function bookingOnClick() {
+    if (handleBookingClick) handleBookingClick(booking.id);
+  }
   function toDateS(datetime_string) {
     return new Date(datetime_string).toLocaleString();
   }
@@ -11,7 +13,7 @@ export default function BookingDetail({ booking, handleBookingClick }) {
     className="timeline-item is-clickable"
     key={"timeline-itm" + itm_idx++}
     id={timeline_itm_id_prefix + booking.id}
-    onClick={() => handleBookingClick(booking.id)}
+    onClick={bookingOnClick}
   >
     <div className="timeline-marker is-primary"></div>
     <div className="timeline-content">

@@ -95,7 +95,17 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
             if (res.detail[key]['constraint']) setDatetimeConstraint(res.detail[key]['constraint']);
           }
         } else if (res.payload !== undefined) {
-          //success
+          //success, 
+          const { added, bookings } = res.payload;
+          handleReset();
+          const { help } = getComponentFromFieldSet(buttonField.current);
+          help.classList.add("is-success");
+          help.innerHTML = "Meeting are Booked.";
+          if (typeof bookingScrollIntoView === "function") {
+            setTimeout(() => {
+              bookingScrollIntoView(res.payload.added.id);
+            }, 500);
+          }
         }
       })
 
@@ -111,9 +121,12 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
       meetingName: meetingNameInputField.current,
       startDate: startDateInputField.current,
       endDate: endDateInputField.current,
+      attendees: attendeesInputField.current,
       summary: buttonField.current
     };
     for (let key in fieldList) resetFieldStatus(fieldList[key]);
+    attendeesTagsDiv.current.innerHTML = "";
+    tagsInput.current.value = "";
     setMeetingName("");
     setStartDate("");
     setEndDate("");

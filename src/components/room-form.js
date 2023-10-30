@@ -36,9 +36,10 @@ export default function RoomForm({ roomId }) {
         }
         if (res.payload !== undefined) {
           //success
+          handleReset();
           const { help } = getComponentFromFieldSet(buttonField.current);
           help.classList.add("is-success");
-          help.innerHTML = "Room added."
+          help.innerHTML = "Room added.";
         }
         setIsloading(false);
 
@@ -46,10 +47,6 @@ export default function RoomForm({ roomId }) {
     } else {
       //edit
     }
-  }
-
-  const handleCancel = (evt) => {
-
   }
 
   const handleReset = (evt) => {
@@ -80,78 +77,77 @@ export default function RoomForm({ roomId }) {
   }
   ///////////////////////////////////////////////////
   return <section className="section is-medium">
-    <div ref={nameInputField} className="field">
-      <label className="label">Name</label>
-      <div className="control">
-        <input
-          className="input"
-          type="text"
-          placeholder="Room's name"
-          onChange={e => setName(e.target.value)}
-          value={name}
-          onClick={handleOnSelect}
-        />
+    <fieldset disabled={isLoading}>
+      <div ref={nameInputField} className="field">
+        <label className="label">Name</label>
+        <div className="control">
+          <input
+            className="input"
+            type="text"
+            placeholder="Room's name"
+            onChange={e => setName(e.target.value)}
+            value={name}
+            onClick={handleOnSelect}
+          />
+        </div>
+        <p className="help is-success"></p>
       </div>
-      <p className="help is-success"></p>
-    </div>
 
-    <div ref={capacityInputField} className="field">
-      <label className="label">Capacity</label>
-      <div className="control has-icons-left has-icons-right">
-        <input
-          className="input"
-          type="number"
-          placeholder="Max capacity of the room."
-          onChange={(evt => setCapacity(evt.target.value))}
-          min={1}
-          value={capacity}
-          onClick={handleOnSelect}
+      <div ref={capacityInputField} className="field">
+        <label className="label">Capacity</label>
+        <div className="control has-icons-left has-icons-right">
+          <input
+            className="input"
+            type="number"
+            placeholder="Max capacity of the room."
+            onChange={(evt => setCapacity(evt.target.value))}
+            min={1}
+            value={capacity}
+            onClick={handleOnSelect}
 
-        />
-        <span className="icon is-small is-left">
-          <i className="fa fa-users" aria-hidden="true"></i>
-        </span>
-        <span className="icon is-small is-right">
-          {/* <i className="fas fa-check"></i> */}
-        </span>
+          />
+          <span className="icon is-small is-left">
+            <i className="fa fa-users" aria-hidden="true"></i>
+          </span>
+          <span className="icon is-small is-right">
+            {/* <i className="fas fa-check"></i> */}
+          </span>
+        </div>
+        <p className="help is-success"></p>
       </div>
-      <p className="help is-success"></p>
-    </div>
 
-    <div ref={floorInputField} className="field">
-      <label className="label">Floor</label>
-      <div className="control has-icons-left has-icons-right">
-        <input
-          className="input"
-          type="number"
-          placeholder="Which floor?"
-          onChange={e => setFloor(e.target.value)}
-          value={floor}
-          onClick={handleOnSelect}
-        />
-        <span className="icon is-small is-left">
-          <i className="fa fa-map-signs" aria-hidden="true"></i>
-        </span>
-        <span className="icon is-small is-right">
-          {/* <i className="fas fa-exclamation-triangle"></i> */}
-        </span>
+      <div ref={floorInputField} className="field">
+        <label className="label">Floor</label>
+        <div className="control has-icons-left has-icons-right">
+          <input
+            className="input"
+            type="number"
+            placeholder="Which floor?"
+            onChange={e => setFloor(e.target.value)}
+            value={floor}
+            onClick={handleOnSelect}
+          />
+          <span className="icon is-small is-left">
+            <i className="fa fa-map-signs" aria-hidden="true"></i>
+          </span>
+          <span className="icon is-small is-right">
+            {/* <i className="fas fa-exclamation-triangle"></i> */}
+          </span>
+        </div>
+        <p className="help is-danger"></p>
       </div>
-      <p className="help is-danger"></p>
-    </div>
-    <div ref={buttonField}>
-      {isLoading && <i className="fa fa-spinner fa-spin" aria-hidden="true"></i>}
-      <p className="help"></p>
-    </div>
-    <div className="field is-grouped">
-      <div className="control">
-        <button className="button is-link" onClick={handleSubmit}>Submit</button>
+      <div ref={buttonField}>
+        {isLoading && <i className="fa fa-spinner fa-spin" aria-hidden="true"></i>}
+        <p className="help"></p>
       </div>
-      <div className="control">
-        <button className="button is-link is-light" onClick={handleReset}>Reset</button>
+      <div className="field is-grouped">
+        <div className="control">
+          <button className="button is-link" onClick={handleSubmit}>Submit</button>
+        </div>
+        <div className="control">
+          <button className="button is-link is-light" onClick={handleReset}>Reset</button>
+        </div>
       </div>
-      <div className="control">
-        <button className="button is-link is-light" onClick={handleCancel}>Cancel</button>
-      </div>
-    </div>
+    </fieldset>
   </section>
 }

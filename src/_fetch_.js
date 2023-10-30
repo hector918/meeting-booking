@@ -1,5 +1,4 @@
 const API = process.env.REACT_APP_API_URL;
-let SINGLE_USER_MODE = undefined;
 let default_fetch_options = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json",
@@ -136,6 +135,12 @@ function searchForRooms(form, callback) {
 function getAllBookings(callback) {
   fetch_get(`${API}/api/bookings`, callback);
 }
+function getBookingById(bookingId, callback) {
+  fetch_get(`${API}/api/bookings/${bookingId}`, callback);
+}
+function cancelBookingById(bookingId, callback) {
+  fetch_delete(`${API}/api/bookings/${bookingId}`, callback);
+}
 ////////////////////////////////////////////////////////
 export default {
   getUserProfile,
@@ -145,5 +150,7 @@ export default {
   bookAnRoom,
   searchForRooms,
   getBookingByRoomId,
-  getAllBookings
+  getAllBookings,
+  getBookingById,
+  cancelBookingById
 }
