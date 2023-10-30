@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import srv from '../_fetch_';
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import BookingForm from "../components/booking-form";
 import BookingList from "../components/booking-list";
 ////////////////////////////////////////////
 export default function RoomById() {
+  const location = useLocation();
+  const { startDate, endDate } = location.state;
   const { id } = useParams();
   const [isError, setIsError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [roomInfo, setRoomInfo] = useState({});
   const [bookings, setBookings] = useState([]);
+
   ////////////////////////////////////////////
   let bookingScrollIntoView;
   ////////////////////////////////////////////
@@ -27,7 +30,6 @@ export default function RoomById() {
       });
       /////////////
       srv.getBookingByRoomId(id, res => {
-        console.log("bookings", res.payload);
         setBookings(res.payload);
         setIsLoading(false);
       });
@@ -66,7 +68,13 @@ export default function RoomById() {
         <div className="container">
           <div className="columns">
             <div className="column ">
-              <BookingForm meetingRoomId={id} book_an_room={book_an_room} bookingScrollIntoView={bookingId => bookingScrollIntoView(bookingId)} />
+              <BookingForm
+                meetingRoomId={id}
+                book_an_room={book_an_room}
+                bookingScrollIntoView={bookingId => bookingScrollIntoView(bookingId)}
+                pre_startDate={startDate}
+                pre_endDate={endDate}
+              />
             </div>
             <div className="column in_mobile_mode_set_fixed_height_parent">
               <BookingList scrollToId={(fn) => bookingScrollIntoView = fn} bookings={bookings} />

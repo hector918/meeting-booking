@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react"
-export default function RoomSearchForm({ searchRoom }) {
+import { useRef, useState } from "react"
+export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate }) {
   const [datetimeConstraint, setDatetimeConstraint] = useState(30);
   const [startDateInput, endDateInput, capacityField, floorField] = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const [isLoading, setIsLoading] = useState(false);
   ////datetime helper//////////////////////////////
   const getFutureDate = (future = datetimeConstraint) => {
     var today = new Date();
@@ -20,6 +21,7 @@ export default function RoomSearchForm({ searchRoom }) {
   }
   ///event/////////////////////////////////
   const handleSubmit = () => {
+    setIsLoading(false);
     const form = {
       startDate: startDateInput.current.value || undefined,
       endDate: endDateInput.current.value || undefined,
@@ -28,14 +30,23 @@ export default function RoomSearchForm({ searchRoom }) {
       floorOp: floorField.current.querySelector("select").value,
       floor: floorField.current.querySelector("input").value || undefined
     };
-    searchRoom(form, () => { });
+    setStartDate(new Date(form['startDate']));
+    setEndDate(new Date(form['endDate']));
+    searchRoom(form, () => { setIsLoading(false) });
   }
   const handleReset = () => {
-
+    startDateInput.current.value = "";
+    endDateInput.current.value = "";
+    capacityField.current.querySelector("select").selectedIndex = 0;
+    capacityField.current.querySelector("input").value = "";
+    floorField.current.querySelector("select").selectedIndex = 0;
+    floorField.current.querySelector("input").value = "";
   }
   ////////////////////////////////////
-  return <div className="block">
+  return <div className="block"><fieldset disabled={isLoading}>
+
     <div className="field is-horizontal">
+
       <div className="field-body">
         <div className="field-label is-normal">
           <label className="label">Start date</label>
@@ -82,48 +93,55 @@ export default function RoomSearchForm({ searchRoom }) {
         <div className="field-label is-normal">
           <label className="label">Capacity</label>
         </div>
-        <div className="field is-expanded">
-          <div className="field has-addons" ref={capacityField}>
-            <p className="control ">
-              <span className="select">
-                <select>
-                  <option>any</option>
-                  <option>&gt;</option>
-                  <option>&lt;</option>
-                  <option>=</option>
-                </select>
-              </span>
-            </p>
-            <p className="control flex-grow">
-              <input className="input" type="number" placeholder="Capacity" />
-            </p>
 
+        <div className="field">
+          <div className="field is-expanded">
+            <div className="field has-addons" ref={capacityField}>
+              <p className="control ">
+                <span className="select">
+                  <select>
+                    <option>any</option>
+                    <option>&gt;</option>
+                    <option>&lt;</option>
+                    <option>=</option>
+                  </select>
+                </span>
+              </p>
+              <p className="control flex-grow">
+                <input className="input" type="number" placeholder="Capacity" />
+              </p>
+
+            </div>
           </div>
         </div>
+
+
 
         <div className="field-label is-normal">
           <label className="label">Floor</label>
         </div>
-
-        <div className="field is-expanded">
-          <div className="field has-addons" ref={floorField}>
-            <p className="control">
-              <span className="select">
-                <select>
-                  <option>any</option>
-                  <option>&lt;</option>
-                  <option>&gt;</option>
-                  <option>=</option>
-                </select>
-              </span>
-            </p>
-            <p className="control flex-grow">
-              <input className="input" type="number" placeholder="which floor" />
-            </p>
+        <div className="field">
+          <div className="field is-expanded">
+            <div className="field has-addons" ref={floorField}>
+              <p className="control">
+                <span className="select">
+                  <select>
+                    <option>any</option>
+                    <option>&lt;</option>
+                    <option>&gt;</option>
+                    <option>=</option>
+                  </select>
+                </span>
+              </p>
+              <p className="control flex-grow">
+                <input className="input" type="number" placeholder="which floor" />
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="field is-grouped">
+
           <p className="control">
             <button className="button is-primary" onClick={handleSubmit}>
               Search
@@ -139,5 +157,5 @@ export default function RoomSearchForm({ searchRoom }) {
       </div>
     </div>
 
-  </div>
+  </fieldset></div >
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RoomList from "../components/room-list";
 import srv from "../_fetch_";
 import RoomSearchForm from "../components/available-room-search-form";
@@ -8,6 +9,13 @@ export default function Home() {
   const [roomsInfo, setRoomsInfo] = useState([]);
   const [roomOrderBy, setRoomOrderBy] = useState("name");
   const [order, setOrder] = useState("asc");
+  const navigate = useNavigate();
+  const [pre_startDate, setStartDate] = useState("");
+  const [pre_endDate, setEndDate] = useState("");
+  //event handler/////////////////////////////
+  const handleRoomClick = (id) => {
+    navigate("/meetingrooms/" + id, { state: { startDate: pre_startDate, endDate: pre_endDate } });
+  }
   ////////////////////////////////////////////
   useEffect(() => {
     setIsLoading(true);
@@ -21,10 +29,9 @@ export default function Home() {
       setIsLoading(false);
     });
   }, [])
-  ///helper////////////////////////////////////////
+  ///helper///////////////////////////////////
   function searchRoom(form, callback) {
     srv.searchForRooms(form, res => {
-      console.log("search res", res)
       if (res.payload) {
         setRoomsInfo(res.payload);
       }
@@ -33,13 +40,13 @@ export default function Home() {
       }
     })
   }
-  ///render helper//////////////////////////////////
+  ///render helper/////////////////////////////
   function renderPage() {
     if (isError !== "") {
       return <div>{isError}</div>
     } else {
       return <div className="section">
-        <RoomSearchForm searchRoom={searchRoom} />
+        <RoomSearchForm searchRoom={searchRoom} setStartDate={setStartDate} setEndDate={setEndDate} />
         <div className="panel">
           <p className="panel-heading">Room list</p>
           <p className="panel-tabs" onClick={handleOrderChangeClick}>
@@ -48,7 +55,12 @@ export default function Home() {
             <a href="#/" name="capacity">capacity</a>
             <a href="#/" name="floor">floor</a>
           </p>
-          {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : <RoomList roomsInfo={roomsInfo} orderKey={roomOrderBy} order={order} />}
+          {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : <RoomList
+            roomsInfo={roomsInfo}
+            orderKey={roomOrderBy}
+            order={order}
+            handleRoomClick={handleRoomClick}
+          />}
 
         </div>
       </div>

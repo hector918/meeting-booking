@@ -1,7 +1,9 @@
 import { useRef } from "react";
+import BookingDetail from "./booking-detail";
 var itm_idx = 1;
 const timeline_itm_id_prefix = "timeline-item-with-booking-id";
-export default function BookingList({ bookings, scrollToId }) {
+
+export default function BookingList({ bookings, scrollToId, handleBookingClick }) {
   const timelineSection = useRef(null);
   //联合上层当上层表达有重复BOOKING，将会调用函数滚动页面
   scrollToId(scrollIntoViewWithBookingId);
@@ -30,7 +32,7 @@ export default function BookingList({ bookings, scrollToId }) {
         current_date = startDate;
         elements.push(renderAnHeader(startDate));
       }
-      elements.push(renderAnItem(booking));
+      elements.push(<BookingDetail key={"bd-" + itm_idx++} booking={booking} handleBookingClick={handleBookingClick} />);
     }
     return elements;
   }
@@ -39,33 +41,20 @@ export default function BookingList({ bookings, scrollToId }) {
       <span key={"timeline-header-span" + itm_idx++} className="tag is-primary">{date}</span>
     </header>
   }
-  function renderAnItem(booking) {
-    return <div
-      className="timeline-item"
-      key={"timeline-itm" + itm_idx++}
-      id={timeline_itm_id_prefix + booking.id}
-    >
-      <div className="timeline-marker is-primary"></div>
-      <div className="timeline-content">
-        <p className="heading"><strong>Meeting name:</strong> {booking.meeting_name}</p>
-        <p><strong>Start at:</strong> {toDateS(booking.start_date)} </p>
-        <p><strong>End at:</strong> {toDateS(booking.end_date)}</p>
-        <p><strong>Host Email:</strong> <a href={`mailto:${booking.host_email}`}>{booking.host_email}</a></p>
-        <p><strong>Latest update:</strong> {toDateS(booking.timestamp)}</p>
-        <p><strong>Attendees</strong></p>
-        <div className="tags are-medium">
-          {booking.attendees.email_list.map(el => <span className="is-light tag" key={"timeline-attendees-tag" + itm_idx++}>{el}</span>)}
-        </div>
-      </div>
-    </div >
-  }
-  function toDateS(datetime_string) {
-    return new Date(datetime_string).toLocaleString();
-  }
+
   /////////////////////////////////////////////
   return <div ref={timelineSection} className="section in_mobile_mode_set_fixed_height">
-    <div className="timeline">
+    {bookings.length === 0 ? <article className="message">
+      <div className="message-header">
+        <p>No Booking on this room</p>
+        <button className="delete" aria-label="delete"></button>
+      </div>
+      <div className="message-body">
+        Your <strong>bookings</strong> will be displayed here after you have made the <em>reservation</em>.
+      </div>
+    </article> : <div className="timeline">
       {renderTimeLine(bookings)}
-    </div>
+    </div>}
+
   </div>
 }

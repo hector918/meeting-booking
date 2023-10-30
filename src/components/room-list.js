@@ -1,12 +1,6 @@
-import { useNavigate } from "react-router-dom";
 var itm_idx = 1;
 ////////////////////////////////////////////////
-export default function RoomList({ roomsInfo, orderKey, order }) {
-  const navigate = useNavigate();
-  ////////////////////////////////////////////////
-  const handleRoomClick = (id) => {
-    navigate("/meetingrooms/" + id);
-  }
+export default function RoomList({ roomsInfo, orderKey, order, handleRoomClick }) {
   ////////////////////////////////////////////////
   if (roomsInfo === undefined) return <></>;
   const renderRoom = (room) => {

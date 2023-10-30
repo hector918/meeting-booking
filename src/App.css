@@ -18,7 +18,7 @@ i{
 }
 @media screen and (min-width: 769px),print {
   .in_mobile_mode_set_fixed_height_parent{
-    height: 70vh;
+    height: 65vh;
   }
   .in_mobile_mode_set_fixed_height{
     overflow-y: scroll;
@@ -28,4 +28,7 @@ i{
 }
 .flex-grow{
   flex-grow: 1;
+}
+.panel-block:hover{
+  background-color: #ccc;
 }

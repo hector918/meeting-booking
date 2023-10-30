@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import srv from '../_fetch_';
 ///////////////////////////////////////////////////
-export default function BookingForm({ meetingRoomId, id, book_an_room, bookingScrollIntoView }) {
+export default function BookingForm({ meetingRoomId, id, book_an_room, bookingScrollIntoView, pre_startDate, pre_endDate }) {
   const [meetingName, setMeetingName] = useState("");
-  const [startDate, setStartDate] = useState(formatDateTime(new Date()));
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(formatDateTime(pre_startDate));
+  const [endDate, setEndDate] = useState(formatDateTime(pre_endDate));
   const [datetimeConstraint, setDatetimeConstraint] = useState(30);
   const [meetingNameInputField, startDateInputField, endDateInputField, attendeesInputField, buttonField, attendeesTagsDiv, tagsInput, endDateInput] = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
   const [isLoading, setIsLoading] = useState(false);
@@ -79,7 +79,6 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
         if (res.error !== undefined) {
           //error
           const { input, help } = getComponentFromFieldSet(buttonField.current);
-          console.log(res)
           help.innerHTML = res.error;
           help.classList.add("is-danger");
           if (Array.isArray(res.is_overlap)) {
@@ -107,10 +106,6 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
     setIsLoading(false);
   }
 
-  const handleCancel = (evt) => {
-
-  }
-
   const handleReset = (evt) => {
     const fieldList = {
       meetingName: meetingNameInputField.current,
@@ -130,6 +125,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
     return today;
   }
   function formatDateTime(date) {
+    if (Object.prototype.toString.call(date) !== "[object Date]") date = new Date();
     var year = date.getFullYear();
     var month = (date.getMonth() + 1).toString().padStart(2, '0');
     var day = date.getDate().toString().padStart(2, '0');
@@ -154,7 +150,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
     }
   }
   ////html//////////////////////////////////
-  return <section className="section in_mobile_mode_set_fixed_height">
+  return <section className="section in_mobile_mode_set_fixed_height"><fieldset disabled={isLoading}>
     <div ref={meetingNameInputField} className="field">
       <label className="label">Meeting name</label>
       <div className="control has-icons-left has-icons-right">
@@ -255,10 +251,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
       <div className="control">
         <button className="button is-link is-light" onClick={handleReset}>Reset</button>
       </div>
-      <div className="control">
-        <button className="button is-link is-light" onClick={handleCancel}>Cancel</button>
-      </div>
     </div>
 
-  </section>
+  </fieldset></section>
 }
