@@ -129,6 +129,14 @@ function bookAnRoom(form, callback) {
 function getBookingByRoomId(meetingRoomId, callback) {
   fetch_get(`${API}/api/meeting-rooms/${meetingRoomId}/bookings`, callback);
 }
+function searchForRooms(form, callback) {
+  let queries = [];
+  for (let itm of Object.entries(form)) {
+    if (itm[1] !== undefined) queries.push(`${itm[0]}=${itm[1]}`);
+  }
+  console.log(form)
+  fetch_get(`${API}/api/meeting-rooms/search_rooms?${queries.join("&")}`, callback);
+}
 ////////////////////////////////////////////////////////
 export default {
   getUserProfile,
@@ -136,5 +144,6 @@ export default {
   getAllRooms,
   getRoomById,
   bookAnRoom,
+  searchForRooms,
   getBookingByRoomId
 }
