@@ -1,6 +1,5 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import FindMeetingRoom from './pages/find-meeting-room';
 import BookingListPage from './pages/booking-list';
 import srv from './_fetch_';
 import Home from './pages/home';
@@ -10,6 +9,7 @@ import RoomById from './pages/room-by-id';
 import BookingById from './pages/booking-by-id';
 import _variable_ from './_variable_';
 import { useEffect } from 'react';
+import About from './pages/about';
 ///////////////////////////////////////////////////
 function App() {
   useEffect(() => {
@@ -31,7 +31,7 @@ function App() {
           <Route path="/meetingrooms/:id" element={<RoomById />} />
           <Route path="/bookings" element={<BookingListPage />} />
           <Route path="/bookings/:id" element={<BookingById />} />
-
+          <Route path="/about" element={<About />} />
         </Routes>
       </Router>
     </div>

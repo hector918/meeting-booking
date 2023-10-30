@@ -61,7 +61,6 @@ export default function Home() {
             order={order}
             handleRoomClick={handleRoomClick}
           />}
-
         </div>
       </div>
     }
@@ -72,9 +71,7 @@ export default function Home() {
       el.classList.remove("is-active");
     })
     evt.target.classList.add("is-active");
-
     setRoomOrderBy(evt.target.name);
-
   }
   ////////////////////////////////////////////
   return <div>

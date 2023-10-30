@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   //
   const burgerOnClick = (evt) => {
@@ -8,9 +10,9 @@ export default function Navbar() {
   ////////////////////////////////////////////
   return <nav className="navbar is-transparent">
     <div className="navbar-brand">
-      <a className="navbar-item" href="https://bulma.io">
-        <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28" />
-      </a>
+      <Link className="navbar-item" to="/about">
+        <img src="logo.svg" alt="Meeting room booking app" />
+      </Link>
       <div className="navbar-burger" data-target="navbarExampleTransparentExample" onClick={burgerOnClick}>
         <span></span>
         <span></span>
@@ -20,38 +22,30 @@ export default function Navbar() {
 
     <div id="navbarExampleTransparentExample" className="navbar-menu">
       <div className="navbar-start">
-        <a className="navbar-item" href="https://bulma.io/">
-          Home
-        </a>
         <div className="navbar-item has-dropdown is-hoverable">
-          <a className="navbar-link" href="https://bulma.io/documentation/overview/start/">
-            Docs
-          </a>
+          <Link className="navbar-link" to="/">
+            Room
+          </Link>
           <div className="navbar-dropdown is-boxed">
-            <a className="navbar-item" href="https://bulma.io/documentation/overview/start/">
-              Overview
-            </a>
-            <a className="navbar-item" href="https://bulma.io/documentation/overview/modifiers/">
-              Modifiers
-            </a>
-            <a className="navbar-item" href="https://bulma.io/documentation/columns/basics/">
-              Columns
-            </a>
-            <a className="navbar-item" href="https://bulma.io/documentation/layout/container/">
-              Layout
-            </a>
-            <a className="navbar-item" href="https://bulma.io/documentation/form/general/">
-              Form
-            </a>
-            <hr className="navbar-divider" />
-            <a className="navbar-item" href="https://bulma.io/documentation/elements/box/">
-              Elements
-            </a>
-            <a className="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
-              Components
-            </a>
+            <Link className="navbar-item" to="/">
+              List all rooms.
+            </Link>
+            <Link className="navbar-item" to="/meetingrooms/new">
+              Create an room.
+            </Link>
           </div>
         </div>
+        <div className="navbar-item has-dropdown is-hoverable">
+          <Link className="navbar-link" to="/">
+            Booking
+          </Link>
+          <div className="navbar-dropdown is-boxed">
+            <Link className="navbar-item" to="/bookings">
+              List all future bookings.
+            </Link>
+          </div>
+        </div>
+
       </div>
 
       <div className="navbar-end">
