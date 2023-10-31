@@ -93,9 +93,16 @@ function bookAnRoom(form, callback) {
 function getBookingByRoomId(meetingRoomId, callback) {
   fetch_get(`${API}/api/meeting-rooms/${meetingRoomId}/bookings`, callback);
 }
-function searchForRooms(form, callback) {
+function searchForRoomsByPost(form, callback) {
   const body = { body: JSON.stringify(form) };
   fetch_post(`${API}/api/meeting-rooms/available`, body, callback);
+}
+function searchForRoomsByQueryString(form, callback) {
+  let queries = [];
+  for (let itm of Object.entries(form)) {
+    if (itm[1] !== undefined) queries.push(`${itm[0]}=${itm[1]}`);
+  }
+  fetch_get(`${API}/api/meeting-rooms/available?${queries.join("&")}`, callback);
 }
 function getAllBookings(callback) {
   fetch_get(`${API}/api/bookings`, callback);
@@ -113,7 +120,8 @@ export default {
   getAllRooms,
   getRoomById,
   bookAnRoom,
-  searchForRooms,
+  searchForRoomsByPost,
+  searchForRoomsByQueryString,
   getBookingByRoomId,
   getAllBookings,
   getBookingById,

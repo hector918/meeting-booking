@@ -32,7 +32,7 @@ export default function Home() {
   ///helper///////////////////////////////////
   function searchRoom(form, callback) {
     setIsLoading(true);
-    srv.searchForRooms(form, res => {
+    srv.searchForRoomsByPost(form, res => {
       if (res.payload) {
         setRoomsInfo(res.payload);
       }

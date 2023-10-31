@@ -86,8 +86,9 @@ export default function AuthWaitingSessionPage() {
             <li><a href="#/">Postgresql</a></li>
             <li><a href="#/">Bulma</a></li>
             <li><a href="#/">Auth0</a></li>
-            <li><a href="#/">Oracle</a></li>
+            <li><a href="#/">Oracle cloud</a></li>
             <li><a href="#/">Cloudflare</a></li>
+            <li><a href="#/">Snyk</a></li>
           </ul>
         </div>
       </nav>
