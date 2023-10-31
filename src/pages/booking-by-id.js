@@ -13,7 +13,7 @@ export default function BookingById() {
   const cancelModal = useRef(null);
   const navigate = useNavigate();
   //booking only can be change by owner or admin
-  let bookingOwner = _variable_.user?.user_profile?.from_db?.power === 0 || booking.host_email !== _variable_.user?.user_profile?.email || false;
+  let bookingOwner = _variable_.user?.user_profile?.from_db?.power === 0 || booking.host_email === _variable_.user?.user_profile?.email;
   /////event////////////////////////////////////////
   const handleCancelClick = (evt) => {
     cancelModal.current.classList.toggle("is-active");
@@ -33,7 +33,6 @@ export default function BookingById() {
     srv.getBookingById(id, res => {
       if (res.error) setIsError(res.error);
       if (res.payload) setBooking(res.payload);
-      console.log(res.payload)
       setIsLoading(false);
     })
   }, [id]);
@@ -61,7 +60,7 @@ export default function BookingById() {
       <div className="modal-content">
         <div className="box">
           <div className="content">
-            <h2>Confirm remove booking</h2>
+            <h2>Confirm cancel booking</h2>
             <p>Meeting Name: <span>{booking.meeting_name}</span></p>
             <p>Meeting Room: <span>{booking.roomInfo.name} - Floor {booking.roomInfo.floor}</span></p>
             <p>Start date: <span>{toDateS(booking.start_date)}</span></p>

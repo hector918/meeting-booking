@@ -10,13 +10,13 @@ export default function AuthWaitingSessionPage() {
   ///////////////////////////////////////////////
   const render = () => {
     if (isLoading) {
-      return <span><i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+      return <span><i className="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
         <span className="sr-only">Loading...</span></span>
     }
     if (isLogin) {
-      return <Link className="button is-dark are-large" to="/meetingrooms" >to Home</Link>
+      return <Link className="button is-black is-large" to="/meetingrooms" >to Home</Link>
     } else {
-      return <button className="button is-dark are-large" onClick={() => { window.location = "/login" }} >Login</button>
+      return <button className="button is-black is-large" onClick={() => { window.location = "/login" }} >Login</button>
     }
   }
   ///////////////////////////////////////////////
@@ -35,7 +35,7 @@ export default function AuthWaitingSessionPage() {
     });
   }, []);
   ///////////////////////////////////////////////
-  return <section className="hero is-primary is-fullheight">
+  return <section className="hero is-link is-fullheight">
     <div className="hero-head">
       <nav className="navbar">
         <div className="container">
@@ -64,12 +64,9 @@ export default function AuthWaitingSessionPage() {
 
     <div className="hero-body">
       <div className="container has-text-centered">
-        <p className="title">
-          Room booking
-        </p>
-        <p className="subtitle">
-          {render()}
-        </p>
+        <p className="title">Room booking</p>
+        <p className="subtitle">V0.02</p>
+        <p>{render()}</p>
       </div>
     </div>
 
