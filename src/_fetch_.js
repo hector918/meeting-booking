@@ -1,4 +1,4 @@
-var API = process.env.REACT_APP_API_URL === "." && `${window.location.origin}`;
+var API = process.env.REACT_APP_API_URL === "." ? `${window.location.origin}` : process.env.REACT_APP_API_URL;
 
 
 let default_fetch_options = {

@@ -1,0 +1,11 @@
+.go-previous-page-button{
+  position: fixed;
+  bottom: 10%;
+  right: 10vw;
+  opacity: 0.5;
+  z-index: 100;
+}
+.go-previous-page-button:hover, .go-previous-page-button:active{
+  opacity: 1;
+  transform: rotate(1turn);
+}

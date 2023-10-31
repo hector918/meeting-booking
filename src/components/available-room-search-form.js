@@ -21,7 +21,7 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
   }
   ///event/////////////////////////////////
   const handleSubmit = () => {
-    setIsLoading(false);
+    setIsLoading(true);
     const form = {
       startDate: startDateInput.current.value || undefined,
       endDate: endDateInput.current.value || undefined,

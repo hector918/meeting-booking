@@ -50,6 +50,7 @@ export default function BookingById() {
           <button className="card-footer-item is-clickable" onClick={handleCancelClick} disabled={!bookingOwner}>Cancel booking</button>
         </footer>
       </div>
+
     </>
   }
   //////////////////////////////////////////////////

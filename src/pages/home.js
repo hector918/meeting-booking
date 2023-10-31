@@ -31,6 +31,7 @@ export default function Home() {
   }, [])
   ///helper///////////////////////////////////
   function searchRoom(form, callback) {
+    setIsLoading(true);
     srv.searchForRooms(form, res => {
       if (res.payload) {
         setRoomsInfo(res.payload);
@@ -38,6 +39,8 @@ export default function Home() {
       if (res.error) {
         setRoomsInfo([]);
       }
+      callback();
+      setIsLoading(false);
     })
   }
   ///render helper/////////////////////////////
@@ -66,12 +69,17 @@ export default function Home() {
     }
   }
   function handleOrderChangeClick(evt) {
-    //remove status
-    evt.currentTarget.querySelectorAll("a").forEach(el => {
-      el.classList.remove("is-active");
-    })
-    evt.target.classList.add("is-active");
-    setRoomOrderBy(evt.target.name);
+    //if click on target was is-active, flip order
+    if (evt.target.classList.contains("is-active")) {
+      setOrder(pv => pv === "asc" ? "desc" : "asc");
+    } else {
+      //remove status
+      evt.currentTarget.querySelectorAll("a").forEach(el => {
+        el.classList.remove("is-active");
+      })
+      evt.target.classList.add("is-active");
+      setRoomOrderBy(evt.target.name);
+    }
   }
   ////////////////////////////////////////////
   return <div>

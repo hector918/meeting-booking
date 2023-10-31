@@ -14,7 +14,7 @@ export default function AuthWaitingSessionPage() {
         <span className="sr-only">Loading...</span></span>
     }
     if (isLogin) {
-      return <Link className="button is-black is-large is-focused" to="/meetingrooms" ><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; to Home</Link>
+      return <Link className="button is-black is-large is-focused" to="/meetingrooms" ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; enter Home</Link>
     } else {
       return <button className="button is-black is-large is-focused" onClick={() => { window.location = "/login" }} ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Login</button>
     }
