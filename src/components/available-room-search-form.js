@@ -143,7 +143,7 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
         <div className="field is-grouped">
 
           <p className="control">
-            <button className="button is-primary" onClick={handleSubmit}>
+            <button className="button is-link" onClick={handleSubmit}>
               Search
             </button>
           </p>

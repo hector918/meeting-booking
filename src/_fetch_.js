@@ -1,14 +1,15 @@
+import _variable_ from "./_variable_";
 const API = process.env.REACT_APP_API_URL;
 let default_fetch_options = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json",
 };
-
 function error_handle(error) {
   console.error(error);
 }
 
 function fetch_post(url, fetchOptions, callback, method = 'POST') {
+
   fetchOptions.method = method;
   fetchOptions.headers = {
     ...default_fetch_options,
@@ -36,6 +37,7 @@ function fetch_put(url, fetchOptions, callback) {
 }
 
 function fetch_get(url, callback) {
+
   const body = {
     method: "GET",
     headers: {
@@ -55,6 +57,7 @@ function fetch_get(url, callback) {
     });
 }
 function fetch_delete(url, callback) {
+
   const body = {
     method: "DELETE",
     headers: {

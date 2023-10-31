@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import _variable_ from "../_variable_";
+// import srv from '../_fetch_';
 export default function Navbar() {
-  //
+  const [userName, setUserName] = useState("");
+  const [userPower, setUserPower] = useState(5);
+  ///////////////////////////////////////////////////
+  useEffect(() => {
+    // srv.getUserProfile(res => {
+    //   if (res.error) {
+    //     window.location = ("/login");
+    //     return;
+    //   }
+    //   _variable_.user = { ...res.payload };
+
+    // });
+    if (_variable_.user.user_profile === undefined) window.location = "/";
+    setUserName(_variable_.user.user_profile.name);
+    if (_variable_.user?.user_profile?.from_db?.power === undefined) {
+      setUserPower(4);
+    } else {
+      setUserPower(_variable_.user.user_profile.from_db.power);
+    }
+
+  }, []);
+  ///////////////////////////////////////////////////
   const burgerOnClick = (evt) => {
     evt.target.classList.toggle("is-active");
     document.querySelector("#navbarExampleTransparentExample").classList.toggle("is-active");
+  }
+  ////////////////////////////////////////////
+  function renderIdentityIcon() {
+    // window.location.assign("https://www.w3schools.com")
+    switch (userPower) {
+      case 0: return <i className="fa fa-key" aria-hidden="true"></i>;
+      default: return <i className="fa fa-user-circle" aria-hidden="true"></i>;
+    }
+
   }
   ////////////////////////////////////////////
   return <nav className="navbar is-transparent">
@@ -23,11 +54,11 @@ export default function Navbar() {
     <div id="navbarExampleTransparentExample" className="navbar-menu">
       <div className="navbar-start">
         <div className="navbar-item has-dropdown is-hoverable">
-          <Link className="navbar-link" to="/">
+          <Link className="navbar-link" to="/meetingrooms">
             Room
           </Link>
           <div className="navbar-dropdown is-boxed">
-            <Link className="navbar-item" to="/">
+            <Link className="navbar-item" to="/meetingrooms">
               List all rooms.
             </Link>
             <Link className="navbar-item" to="/meetingrooms/new">
@@ -36,7 +67,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="navbar-item has-dropdown is-hoverable">
-          <Link className="navbar-link" to="/">
+          <Link className="navbar-link" to="/bookings">
             Booking
           </Link>
           <div className="navbar-dropdown is-boxed">
@@ -52,21 +83,19 @@ export default function Navbar() {
         <div className="navbar-item">
           <div className="field is-grouped">
             <p className="control">
-              <a className="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="https://bulma.io" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms">
-                <span className="icon">
-                  <i className="fab fa-twitter"></i>
+              <span className="button">
+                <span className="icon is-small">
+                  {renderIdentityIcon()}
                 </span>
-                <span>
-                  Tweet
-                </span>
-              </a>
+                <span>{userName}</span>
+              </span>
             </p>
             <p className="control">
-              <a className="button is-primary" href="https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip">
+              <a className="button is-primary" href="/logout">
                 <span className="icon">
-                  <i className="fas fa-download"></i>
+                  <i className="fa fa-sign-out" aria-hidden="true"></i>
                 </span>
-                <span>Download</span>
+                <span>Logout</span>
               </a>
             </p>
           </div>

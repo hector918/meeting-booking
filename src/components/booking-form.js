@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import srv from '../_fetch_';
 ///////////////////////////////////////////////////
 export default function BookingForm({ meetingRoomId, id, book_an_room, bookingScrollIntoView, pre_startDate, pre_endDate }) {
   const [meetingName, setMeetingName] = useState("");
@@ -96,7 +95,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
           }
         } else if (res.payload !== undefined) {
           //success, 
-          const { added, bookings } = res.payload;
+          // const { added, bookings } = res.payload;
           handleReset();
           const { help } = getComponentFromFieldSet(buttonField.current);
           help.classList.add("is-success");

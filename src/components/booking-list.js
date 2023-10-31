@@ -46,7 +46,6 @@ export default function BookingList({ bookings, scrollToId }) {
       <span key={"timeline-header-span" + itm_idx++} className="tag is-primary">{date}</span>
     </header>
   }
-
   /////////////////////////////////////////////
   return <div ref={timelineSection} className="section in_mobile_mode_set_fixed_height">
     {bookings.length === 0 ? <article className="message">
