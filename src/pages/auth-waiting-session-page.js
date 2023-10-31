@@ -14,9 +14,9 @@ export default function AuthWaitingSessionPage() {
         <span className="sr-only">Loading...</span></span>
     }
     if (isLogin) {
-      return <Link className="button is-black is-large" to="/meetingrooms" >to Home</Link>
+      return <Link className="button is-black is-large is-focused" to="/meetingrooms" ><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; to Home</Link>
     } else {
-      return <button className="button is-black is-large" onClick={() => { window.location = "/login" }} >Login</button>
+      return <button className="button is-black is-large is-focused" onClick={() => { window.location = "/login" }} ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Login</button>
     }
   }
   ///////////////////////////////////////////////
@@ -74,7 +74,7 @@ export default function AuthWaitingSessionPage() {
       <nav className="tabs">
         <div className="container">
           <ul>
-            <li className="is-active"><a href="#/">Hector</a></li>
+            <li className="is-active"><a href="#/">Hector by 2023 Fall</a></li>
             <li><a href="#/">Node js</a></li>
             <li><a href="#/">Express</a></li>
             <li><a href="#/">React</a></li>
