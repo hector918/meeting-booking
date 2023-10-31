@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import _variable_ from "../_variable_";
-// import srv from '../_fetch_';
 export default function Navbar() {
   const [userName, setUserName] = useState("");
   const [userPower, setUserPower] = useState(5);
   ///////////////////////////////////////////////////
   useEffect(() => {
-    // srv.getUserProfile(res => {
-    //   if (res.error) {
-    //     window.location = ("/login");
-    //     return;
-    //   }
-    //   _variable_.user = { ...res.payload };
 
-    // });
     if (_variable_.user.user_profile === undefined) window.location = "/";
     setUserName(_variable_.user.user_profile.name);
     if (_variable_.user?.user_profile?.from_db?.power === undefined) {
@@ -31,7 +23,6 @@ export default function Navbar() {
   }
   ////////////////////////////////////////////
   function renderIdentityIcon() {
-    // window.location.assign("https://www.w3schools.com")
     switch (userPower) {
       case 0: return <i className="fa fa-key" aria-hidden="true"></i>;
       default: return <i className="fa fa-user-circle" aria-hidden="true"></i>;
