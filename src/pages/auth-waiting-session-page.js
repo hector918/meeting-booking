@@ -65,7 +65,7 @@ export default function AuthWaitingSessionPage() {
     <div className="hero-body">
       <div className="container has-text-centered">
         <p className="title">Room booking</p>
-        <p className="subtitle">V0.02</p>
+        <p className="subtitle">V0.03</p>
         <p>{render()}</p>
       </div>
     </div>

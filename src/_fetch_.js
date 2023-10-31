@@ -1,5 +1,6 @@
-import _variable_ from "./_variable_";
-const API = process.env.REACT_APP_API_URL;
+var API = process.env.REACT_APP_API_URL === "." && `${window.location.origin}`;
+
+
 let default_fetch_options = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json",
@@ -28,12 +29,6 @@ function fetch_post(url, fetchOptions, callback, method = 'POST') {
       error_handle(error);
       callback(error);
     });
-}
-function fetch_patch(url, fetchOptions, callback) {
-  fetch_post(url, fetchOptions, callback, 'PATCH');
-}
-function fetch_put(url, fetchOptions, callback) {
-  fetch_post(url, fetchOptions, callback, 'PUT');
 }
 
 function fetch_get(url, callback) {
@@ -77,39 +72,6 @@ function fetch_delete(url, callback) {
     });
 }
 
-async function fetch_get_async(url) {
-  try {
-    const body = {
-      method: "GET",
-      headers: {
-        ...default_fetch_options,
-      },
-      credentials: "include",
-    };
-    const response = await fetch(url, body);
-    const ret = await response.json();
-    return ret;
-  } catch (error) {
-    error_handle(error);
-    return error;
-  }
-}
-async function fetch_post_async(url, body) {
-  try {
-    body.method = "POST";
-    body.headers = {
-      ...body.headers,
-      ...default_fetch_options,
-    }
-    //add cookies when fired
-    body.credentials = "include";
-    const res = await fetch(url, body);
-    return res;
-  } catch (error) {
-    error_handle(error);
-    return false;
-  }
-}
 ///export////////////////////////////////////////////////
 function getUserProfile(callback) {
   fetch_get(`${API}/is_auth`, callback);
