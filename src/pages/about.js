@@ -1,4 +1,18 @@
 export default function About() {
+  const preContent = `
+  HTTPS_PORT=
+  HTTP_PORT=
+  PG_HOST=
+  PG_PORT=
+  PG_DB=
+  PG_USER=
+  PG_PASSWORD=
+  SINGLE_USER_MODE=false
+  AUTH_SECRET=
+  AUTH0_BASEURL=
+  AUTH0_CLIENTID=
+  AUTH0_ISSUERBASEURL=
+  `;
   return <section className="hero">
     <div className="hero-body">
       <p className="title">
@@ -48,18 +62,7 @@ export default function About() {
           <li>Clone the backend repo to the VPS.</li>
           <li>Create a <code>.env</code> file with the following format:
             <pre>
-              HTTPS_PORT=
-              HTTP_PORT=
-              PG_HOST=
-              PG_PORT=
-              PG_DB=
-              PG_USER=
-              PG_PASSWORD=
-              SINGLE_USER_MODE=false
-              AUTH_SECRET=
-              AUTH0_BASEURL=
-              AUTH0_CLIENTID=
-              AUTH0_ISSUERBASEURL=
+              {preContent}
             </pre>
           </li>
           <li>Update the HTTPS certificate and key under <code>\ssl</code>.</li>

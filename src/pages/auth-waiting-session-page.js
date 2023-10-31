@@ -65,8 +65,6 @@ export default function AuthWaitingSessionPage() {
     <div className="hero-body">
       <div className="container has-text-centered">
         <div className="section"><p className="title">Room booking</p></div>
-
-
         <p>{render()}</p>
       </div>
       <div title="You know, you know. You don't know, you don't know." class="content is-small has-text-right" style={{
@@ -77,7 +75,7 @@ export default function AuthWaitingSessionPage() {
     </div>
 
     <div className="hero-foot">
-      <nav className="tabs is-boxed is-fullwidth">
+      <nav className="tabs is-fullwidth">
         <div className="container">
           <ul>
             <li><a href="#/">Node js</a></li>
