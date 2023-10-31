@@ -48,12 +48,12 @@ export default function Home() {
       return <div className="section">
         <RoomSearchForm searchRoom={searchRoom} setStartDate={setStartDate} setEndDate={setEndDate} />
         <div className="panel">
-          <p className="panel-heading">Room list</p>
+          <p className="panel-heading">Room list <span> ({roomsInfo.length}) </span></p>
           <p className="panel-tabs" onClick={handleOrderChangeClick}>
             <span style={{ margin: "auto 0" }}>Order by</span>
             <a href="#/" className="is-active" name="name">Name</a>
-            <a href="#/" name="capacity">capacity</a>
-            <a href="#/" name="floor">floor</a>
+            <a href="#/" name="capacity">Capacity</a>
+            <a href="#/" name="floor">Floor</a>
           </p>
           {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : <RoomList
             roomsInfo={roomsInfo}

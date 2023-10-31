@@ -72,7 +72,7 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
         <div className="field">
           <p className="control is-expanded has-icons-left">
             <input
-              className="input is-success"
+              className="input"
               type="datetime-local"
               placeholder="end date"
               min={formatDateTime(new Date())}
