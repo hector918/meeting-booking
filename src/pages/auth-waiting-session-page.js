@@ -64,17 +64,22 @@ export default function AuthWaitingSessionPage() {
 
     <div className="hero-body">
       <div className="container has-text-centered">
-        <p className="title">Room booking</p>
-        <p className="subtitle">V0.03</p>
+        <div className="section"><p className="title">Room booking</p></div>
+
+
         <p>{render()}</p>
       </div>
+      <div title="You know, you know. You don't know, you don't know." class="content is-small has-text-right" style={{
+        position: "absolute",
+        bottom: "5vh",
+        right: "2vw"
+      }}>V0.04</div>
     </div>
 
     <div className="hero-foot">
-      <nav className="tabs">
+      <nav className="tabs is-boxed is-fullwidth">
         <div className="container">
           <ul>
-            <li className="is-active"><a href="#/">Hector by 2023 Fall</a></li>
             <li><a href="#/">Node js</a></li>
             <li><a href="#/">Express</a></li>
             <li><a href="#/">React</a></li>
