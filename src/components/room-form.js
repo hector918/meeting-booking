@@ -128,7 +128,7 @@ export default function RoomForm({ roomId }) {
             onClick={handleOnSelect}
           />
           <span className="icon is-small is-left">
-            <i className="fa fa-map-signs" aria-hidden="true"></i>
+            <i className="fa fa-building" aria-hidden="true"></i>
           </span>
           <span className="icon is-small is-right">
             {/* <i className="fas fa-exclamation-triangle"></i> */}

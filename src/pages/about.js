@@ -22,19 +22,18 @@ export default function About() {
         for Blackstone interview
       </p>
       <p>
-        <a href="mailto:qihectorzhong@pursuit.org">Send me E-mail.</a>
-      </p>
-      <p>
         <a href="https://github.com/hector918/meeting-booking">Backend repo on Github.</a>
       </p>
       <p>
         <a href="https://github.com/hector918/meeting-booking">Frontend repo on Github.</a>
       </p>
-      <p>by Hector 2023 Fall</p>
+      <p>by 2023 Fall</p>
+      <p>
+        <a href="mailto:qihectorzhong@pursuit.org">Send me E-mail.</a>
+      </p>
       <hr></hr>
       <div className="content">
         <h1>Project Overview</h1>
-
         <h2>Tech Stack</h2>
         <ul>
           <li>Node.js</li>
@@ -45,6 +44,7 @@ export default function About() {
           <li>Auth0</li>
           <li>Oracle Cloud</li>
           <li>Cloudflare</li>
+          <li>Snyk</li>
         </ul>
 
         <h2>Highlights</h2>
