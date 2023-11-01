@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import _variable_ from "../_variable_";
 import GoPreviousPageButton from "./go-previous-page-button";
+import ThemeModeButton from "./theme-mode-button";
 export default function Navbar() {
   const [userName, setUserName] = useState("");
   const [userPower, setUserPower] = useState(5);
@@ -72,6 +73,9 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-end">
+        <div className="navbar-item">
+          {/* <ThemeModeButton /> */}
+        </div>
         <div className="navbar-item">
           <div className="field is-grouped">
             <p className="control">

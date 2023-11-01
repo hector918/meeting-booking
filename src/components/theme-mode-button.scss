@@ -1,0 +1,30 @@
+@import "../asset/bulma/bulma.sass";
+
+body {
+  background-color: $light;
+}
+
+body .subtitle,
+body .title {
+  color: $dark;
+}
+
+body.dark {
+  background-color: $dark;
+  color: $light;
+}
+
+body.dark{
+  color: $light;
+}
+
+button{
+  cursor: pointer;
+  color: $light;
+  background: $dark;
+}
+
+body.dark button {
+  background: $light;
+  color: $dark;
+}
