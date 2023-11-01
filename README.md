@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+## Repository
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Backend repo [https://github.com/hector918/blackstone-backend](https://github.com/hector918/blackstone-backend).
+- Frontend repo [https://github.com/hector918/meeting-booking](https://github.com/hector918/meeting-booking).
 
-## Available Scripts
+## Functionality
 
-In the project directory, you can run:
+1. **View All Meeting Rooms:**
 
-### `npm start`
+   - _Description:_ Users can view a list of all available meeting rooms on the Home page. These meeting rooms are essential for booking meetings.
+   - _Functionality:_ Display a list of meeting rooms with details such as name, capacity, and floor.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **View Single Meeting Room Details:**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   - _Description:_ Users can access the details of a specific meeting room by clicking on a room from the list on the Home page. This allows them to make informed decisions when booking.
+   - _Functionality:_ Display the details of the selected meeting room, including its name, capacity, and floor. Additionally, list all future bookings for that room.
 
-### `npm test`
+3. **Book Meeting Room:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   - _Description:_ Users can book a meeting room by providing details about their meeting. This is a core function for scheduling meetings.
+   - _Functionality:_ Present a booking form where users can enter the meeting name, start date, end date, and attendees (optional). Validate the input and provide success or error messages upon submission.
 
-### `npm run build`
+4. **View All Bookings:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   - _Description:_ Users can view a list of all future bookings for all meeting rooms on the "Bookings" page. This provides an overview of upcoming meetings.
+   - _Functionality:_ Display a list of all future bookings, including meeting names, start dates, and end dates. Allow users to click on a booking for more details.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. **View Single Booking Details:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   - _Description:_ Users can access the details of a specific booking by clicking on a booking from the list on the "Bookings" page.
+   - _Functionality:_ Display the details of the selected booking, including the meeting name, start date, and end date. Provide a button to cancel the booking and prompt for confirmation.
 
-### `npm run eject`
+6. **Create New Meeting Room (Admin):**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   - _Description:_ Administrators can create new meeting rooms to expand the available options for users.
+   - _Functionality:_ Provide a form for administrators to enter the name, capacity, and floor of a new meeting room. Validate input and show success or error messages.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+7. **Filter Available Meeting Rooms (Admin, Extra Challenge):**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   - _Description:_ Administrators can filter available meeting rooms based on search criteria to find a suitable room for a meeting quickly.
+   - _Functionality:_ Display a search form with fields for start date, end date, floor, and capacity. Filter and display only the available rooms that match the search criteria.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+8. **Cancel Booking (Admin):**
+   - _Description:_ Administrators have the ability to cancel bookings, which can be useful when changes or cancellations are necessary.
+   - _Functionality:_ Provide a cancel button on the booking details page. Prompt the administrator for confirmation before canceling the booking.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Screenshots
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. The landing page of the Meeting Room Booking App, serving as the initial interface for users.
+   ![landing page](./screenshots/Screenshot%202023-10-31%20at%209.07.05 PM.png)
+2. The login page where users can log in to their accounts.
+   ![login page](./screenshots/Screenshot%202023-10-31%20at%209.07.10 PM.png)
+3. The page users are directed to after logging in successfully.
+   ![landing after login page](./screenshots/Screenshot%202023-10-31%20at%209.07.19 PM.png)
+4. The Home page where users can view a list of available meeting rooms and may use a search form.
+   ![home page/ room listing and search page](./screenshots/Screenshot%202023-10-31%20at%209.07.22 PM.png)
+5. The page dedicated to a specific meeting room, displaying room details and future bookings.
+   ![single room page](./screenshots/Screenshot%202023-10-31%20at%209.07.36 PM.png)
+6. The page dedicated to a specific booking, showing meeting details and options to cancel the booking.
+   ![single booking page](./screenshots/Screenshot%202023-10-31%20at%209.07.39 PM.png)
+7. A modal dialog for confirming the cancellation of a booking.
+   ![cancel booking modal](./screenshots/Screenshot%202023-10-31%20at%209.07.42 PM.png)
+8. The page for creating a new meeting room, allowing administrators to add details of the room.
+   ![create new room page](./screenshots/Screenshot%202023-10-31%20at%209.07.50 PM.png)
