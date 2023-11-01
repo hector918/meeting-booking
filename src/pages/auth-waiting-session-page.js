@@ -74,10 +74,10 @@ export default function AuthWaitingSessionPage() {
     <div className="hero-body">
       <div className="container has-text-centered">
         <div className="section"><p className="title blackstone_font">Room Booking</p></div>
-        <div className="is-flex is-justify-content-center"><span class="horizontal-line"></span></div>
+        <div className="is-flex is-justify-content-center"><span className="horizontal-line"></span></div>
         <p>{render()}</p>
       </div>
-      <div title="You know, you know. You don't know, you don't know." class="content is-small has-text-right blackstone_font" style={{
+      <div title="You know, you know. You don't know, you don't know." className="content is-small has-text-right blackstone_font" style={{
         position: "absolute",
         bottom: "5vh",
         right: "2vw"

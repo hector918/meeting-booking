@@ -8,14 +8,16 @@ import RoomById from './pages/room-by-id';
 import BookingById from './pages/booking-by-id';
 import About from './pages/about';
 import AuthWaitingSessionPage from './pages/auth-waiting-session-page';
+import './asset/bulma/css/bulma.min.css';
+import './asset/bulma-timeline.min.css';
 ///////////////////////////////////////////////////
 function App() {
   ///////////////////////////////////////////////////
   return (
     <div className="App">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"></link>
+      {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"></link> */}
+      {/* <link href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css" rel="stylesheet"></link> */}
       <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"></link>
-      <link href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css" rel="stylesheet"></link>
       <Router>
         <Routes>
           <Route path="/" element={<AuthWaitingSessionPage />} />
