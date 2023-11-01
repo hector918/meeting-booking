@@ -64,3 +64,5 @@
    ![cancel booking modal](./screenshots/Screenshot%202023-10-31%20at%209.07.42 PM.png)
 8. The page for creating a new meeting room, allowing administrators to add details of the room.
    ![create new room page](./screenshots/Screenshot%202023-10-31%20at%209.07.50 PM.png)
+9. List all future booking page, user can click on booking item and goto single booking page.
+   ![create new room page](./screenshots/Screenshot%202023-11-01%20at%205.59.21 AM.png)

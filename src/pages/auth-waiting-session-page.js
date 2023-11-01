@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import srv from '../_fetch_';
 import { Link } from "react-router-dom";
 import _variable_ from "../_variable_";
+import './auth-waiting-session-page.css';
 ///////////////////////////////////////////////
 export default function AuthWaitingSessionPage() {
   ///////////////////////////////////////////////
@@ -11,12 +12,20 @@ export default function AuthWaitingSessionPage() {
   const render = () => {
     if (isLoading) {
       return <span><i className="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
-        <span className="sr-only">Loading...</span></span>
+        <span className="sr-only blackstone_font">Loading...</span></span>
     }
     if (isLogin) {
-      return <Link className="button is-black is-large is-focused" to="/meetingrooms" ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; enter Home</Link>
+      return <Link
+        className="button is-black is-focused blackstone_font"
+        to="/meetingrooms"
+        title="next page is home."
+      ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Enter Home</Link>
     } else {
-      return <button className="button is-black is-large is-focused" onClick={() => { window.location = "/login" }} ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Login</button>
+      return <button
+        className="button is-black is-large is-focused blackstone_font"
+        onClick={() => { window.location = "/login" }}
+        title="click me to led you to login page."
+      ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Login</button>
     }
   }
   ///////////////////////////////////////////////
@@ -64,14 +73,14 @@ export default function AuthWaitingSessionPage() {
 
     <div className="hero-body">
       <div className="container has-text-centered">
-        <div className="section"><p className="title">Room booking</p></div>
+        <div className="section"><p className="title blackstone_font">Room Booking</p></div>
         <p>{render()}</p>
       </div>
-      <div title="You know, you know. You don't know, you don't know." class="content is-small has-text-right" style={{
+      <div title="You know, you know. You don't know, you don't know." class="content is-small has-text-right blackstone_font" style={{
         position: "absolute",
         bottom: "5vh",
         right: "2vw"
-      }}>V0.04</div>
+      }}>V0.05</div>
     </div>
 
     <div className="hero-foot">
