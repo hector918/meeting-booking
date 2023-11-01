@@ -16,13 +16,13 @@ export default function AuthWaitingSessionPage() {
     }
     if (isLogin) {
       return <Link
-        className="button is-black is-focused blackstone_font"
+        className="button is-black is-medium blackstone_font"
         to="/meetingrooms"
         title="next page is home."
       ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Enter Home</Link>
     } else {
       return <button
-        className="button is-black is-large is-focused blackstone_font"
+        className="button is-black is-medium blackstone_font"
         onClick={() => { window.location = "/login" }}
         title="click me to led you to login page."
       ><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Login</button>
@@ -74,6 +74,7 @@ export default function AuthWaitingSessionPage() {
     <div className="hero-body">
       <div className="container has-text-centered">
         <div className="section"><p className="title blackstone_font">Room Booking</p></div>
+        <div className="is-flex is-justify-content-center"><span class="horizontal-line"></span></div>
         <p>{render()}</p>
       </div>
       <div title="You know, you know. You don't know, you don't know." class="content is-small has-text-right blackstone_font" style={{
