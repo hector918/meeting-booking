@@ -29,6 +29,13 @@ i{
 .flex-grow{
   flex-grow: 1;
 }
-.panel-block:hover{
-  background-color: #ccc;
+html{
+  .panel-block:hover{
+    background-color: #ccc;
+  }
+}
+html.dark{
+  .panel-block:hover{
+    background-color: #222222;
+  }
 }

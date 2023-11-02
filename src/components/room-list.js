@@ -20,11 +20,11 @@ export default function RoomList({ roomsInfo, orderKey, order, handleRoomClick }
             Floor: {room.floor}
           </div>
         </div>
-        <div className="columns">
+        {/* <div className="columns">
           <div className="column">
             Manager email: {room.manager_email}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   }
