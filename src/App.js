@@ -26,7 +26,8 @@ function App() {
           <Route path="/meetingrooms/:id" element={<><Navbar /><RoomById /></>} />
           <Route path="/bookings" element={<><Navbar /><BookingListPage /></>} />
           <Route path="/bookings/:id" element={<><Navbar /><BookingById /></>} />
-          <Route path="/about" element={<><Navbar /><About /></>} />
+          <Route path="/about" element={<><About /></>} />
+          <Route path="/home" element={<><Navbar /><Home /></>} />
         </Routes>
       </Router>
     </div>

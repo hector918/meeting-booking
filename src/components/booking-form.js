@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 ///////////////////////////////////////////////////
 export default function BookingForm({ meetingRoomId, id, book_an_room, bookingScrollIntoView, pre_startDate, pre_endDate }) {
   const [meetingName, setMeetingName] = useState("");
@@ -8,9 +8,14 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
   const [meetingNameInputField, startDateInputField, endDateInputField, attendeesInputField, buttonField, attendeesTagsDiv, tagsInput, endDateInput] = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
   const [isLoading, setIsLoading] = useState(false);
   ////event//////////////////////////////////////
-  useEffect(() => {
-    endDateInput.current.min = formatDateTime(new Date(startDate));
-  }, [startDate])
+  const onStartDateChange = evt => {
+    const newDate = new Date(evt.target.value);
+    setStartDate(evt.target.value);
+    endDateInput.current.min = formatDateTime(newDate);
+    if (new Date(endDate) <= newDate || !endDate) {
+      setEndDate(formatDateTime(new Date(newDate.setMinutes(newDate.getMinutes() + 30))));
+    }
+  }
   const onTagsInputEnter = evt => {
     if (evt.keyCode === 13) handleAddAttendees(evt.target.value);
   }
@@ -77,7 +82,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
       book_an_room(form, res => {
         if (res.error !== undefined) {
           //error
-          const { input, help } = getComponentFromFieldSet(buttonField.current);
+          const { help } = getComponentFromFieldSet(buttonField.current);
           help.innerHTML = res.error;
           help.classList.add("is-danger");
           if (Array.isArray(res.is_overlap)) {
@@ -192,7 +197,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
           type="datetime-local"
           min={formatDateTime(new Date())}
           max={formatDateTime(getFutureDate())}
-          onChange={(evt) => setStartDate(evt.target.value)}
+          onChange={onStartDateChange}
           value={startDate}
         />
         <span className="icon is-small is-left">

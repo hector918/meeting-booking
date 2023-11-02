@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import srv from '../_fetch_';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import _variable_ from "../_variable_";
 import './auth-waiting-session-page.css';
 ///////////////////////////////////////////////
@@ -8,6 +8,10 @@ export default function AuthWaitingSessionPage() {
   ///////////////////////////////////////////////
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const handleEastenEggClick = (evt) => {
+    navigate('/about');
+  }
   ///////////////////////////////////////////////
   const render = () => {
     if (isLoading) {
@@ -77,11 +81,11 @@ export default function AuthWaitingSessionPage() {
         <div className="is-flex is-justify-content-center"><span className="horizontal-line"></span></div>
         <p>{render()}</p>
       </div>
-      <div title="You know, you know. You don't know, you don't know." className="content is-small has-text-right blackstone_font" style={{
+      <div title="You know, you know. You don't know, you don't know." className="content is-small has-text-right blackstone_font is-clickable" style={{
         position: "absolute",
         bottom: "5vh",
         right: "2vw"
-      }}>V0.05</div>
+      }} onClick={handleEastenEggClick}>V0.06</div>
     </div>
 
     <div className="hero-foot">
@@ -102,7 +106,5 @@ export default function AuthWaitingSessionPage() {
       </nav>
     </div>
   </section>
-
-
 
 }

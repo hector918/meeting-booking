@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import _variable_ from "../_variable_";
 import GoPreviousPageButton from "./go-previous-page-button";
-import ThemeModeButton from "./theme-mode-button";
+// import ThemeModeButton from "./theme-mode-button";
 export default function Navbar() {
   const [userName, setUserName] = useState("");
   const [userPower, setUserPower] = useState(5);
@@ -34,7 +34,7 @@ export default function Navbar() {
   ////////////////////////////////////////////
   return <nav className="navbar is-transparent">
     <div className="navbar-brand">
-      <Link className="navbar-item" to="/about">
+      <Link className="navbar-item" to="/home">
         <img src="logo.svg" alt="Meeting room booking app" />
       </Link>
       <div className="navbar-burger" data-target="navbarExampleTransparentExample" onClick={burgerOnClick}>

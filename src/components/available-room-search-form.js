@@ -2,6 +2,7 @@ import { useRef, useState } from "react"
 export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate }) {
   const [datetimeConstraint, setDatetimeConstraint] = useState(30);
   const [startDateInput, endDateInput, capacityField, floorField] = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const [capacityInput, floorInput] = [useRef(null), useRef()];
   const [isLoading, setIsLoading] = useState(false);
   ////datetime helper//////////////////////////////
   const getFutureDate = (future = datetimeConstraint) => {
@@ -26,13 +27,17 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
       startDate: startDateInput.current.value || undefined,
       endDate: endDateInput.current.value || undefined,
       capacityOp: capacityField.current.querySelector("select").value,
-      capacity: capacityField.current.querySelector("input").value || undefined,
+      capacity: checkInputDisable(capacityField.current.querySelector("input")),
       floorOp: floorField.current.querySelector("select").value,
-      floor: floorField.current.querySelector("input").value || undefined
+      floor: checkInputDisable(floorField.current.querySelector("input"))
     };
     setStartDate(new Date(form['startDate']));
     setEndDate(new Date(form['endDate']));
     searchRoom(form, () => { setIsLoading(false) });
+    function checkInputDisable(element) {
+      if (!element.value) return undefined;
+      return element.value;
+    }
   }
   const handleReset = () => {
     startDateInput.current.value = "";
@@ -42,9 +47,15 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
     floorField.current.querySelector("select").selectedIndex = 0;
     floorField.current.querySelector("input").value = "";
   }
+  const handleSelectChange = (evt, element) => {
+    if (evt.target.value === "any") {
+      element.disabled = true;
+    } else {
+      element.disabled = false;
+    }
+  }
   ////////////////////////////////////
   return <div className="block"><fieldset disabled={isLoading}>
-
     <div className="field is-horizontal">
 
       <div className="field-body">
@@ -98,7 +109,7 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
           <div className="field is-expanded">
             <div className="field has-addons" ref={capacityField}>
               <p className="control ">
-                <span className="select">
+                <span className="select" onChange={(e) => handleSelectChange(e, capacityInput.current)}>
                   <select>
                     <option>any</option>
                     <option>&gt;</option>
@@ -108,7 +119,7 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
                 </span>
               </p>
               <p className="control flex-grow">
-                <input className="input" type="number" placeholder="Capacity" />
+                <input ref={capacityInput} disabled={true} className="input" type="number" placeholder="Capacity" />
               </p>
 
             </div>
@@ -125,7 +136,7 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
             <div className="field has-addons" ref={floorField}>
               <p className="control">
                 <span className="select">
-                  <select>
+                  <select onChange={(e) => handleSelectChange(e, floorInput.current)} >
                     <option>any</option>
                     <option>&lt;</option>
                     <option>&gt;</option>
@@ -134,14 +145,17 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
                 </span>
               </p>
               <p className="control flex-grow">
-                <input className="input" type="number" placeholder="which floor" />
+                <input ref={floorInput} disabled={true} className="input" type="number" placeholder="which floor" />
               </p>
             </div>
           </div>
         </div>
 
-        <div className="field is-grouped">
-
+      </div>
+    </div>
+    <div className="field is-horizontal">
+      <div className="field-body">
+        <div className="field is-grouped is-justify-content-flex-end">
           <p className="control">
             <button className="button is-link" onClick={handleSubmit}>
               Search
@@ -153,9 +167,7 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
             </button>
           </p>
         </div>
-
       </div>
     </div>
-
   </fieldset></div >
 }
