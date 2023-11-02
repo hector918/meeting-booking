@@ -54,6 +54,12 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
       element.disabled = false;
     }
   }
+  const handleStartDateChange = (evt) => {
+    const newDate = new Date(evt.target.value);
+    if (newDate >= new Date(endDateInput.current.value) || endDateInput.current.value === "") {
+      endDateInput.current.value = formatDateTime(new Date(newDate.setMinutes(newDate.getMinutes() + 30)));
+    }
+  }
   ////////////////////////////////////
   return <div className="block"><fieldset disabled={isLoading}>
     <div className="field is-horizontal">
@@ -71,6 +77,7 @@ export default function RoomSearchForm({ searchRoom, setStartDate, setEndDate })
               min={formatDateTime(new Date())}
               max={formatDateTime(getFutureDate())}
               ref={startDateInput}
+              onChange={handleStartDateChange}
             />
             <span className="icon is-small is-left">
               <i className="fa fa-calendar" aria-hidden="true"></i>
