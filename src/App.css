@@ -38,4 +38,7 @@ html.dark{
   .panel-block:hover{
     background-color: #222222;
   }
+  input::-webkit-calendar-picker-indicator{
+    color: white;
+  }
 }
