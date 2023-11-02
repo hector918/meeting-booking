@@ -8,6 +8,7 @@ import RoomById from './pages/room-by-id';
 import BookingById from './pages/booking-by-id';
 import About from './pages/about';
 import AuthWaitingSessionPage from './pages/auth-waiting-session-page';
+// import './asset/bulma/bulma.sass';
 import './asset/bulma/css/bulma.min.css';
 import './asset/bulma-timeline.min.css';
 ///////////////////////////////////////////////////

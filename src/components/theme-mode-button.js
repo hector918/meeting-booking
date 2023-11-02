@@ -1,17 +1,13 @@
-import { useState } from "react"
-import './theme-mode-button.scss';
+// import { useState } from "react"
+// import './theme-mode-button.scss';
+import '../asset/bulma-dark-0.9.4.css';
 ///////////////////////////////////////////////
 export default function ThemeModeButton() {
   ///////////////////////////////////////////////
-  const [mode, setMode] = useState("light");
+  // const [mode, setMode] = useState("light");
   ////event///////////////////////////////////////////
   const handleModeSwitch = () => {
-    const body = document.querySelector("body");
-    if (body.classList.contains('dark')) {
-      body.className = '';
-    } else {
-      body.className = "dark";
-    }
+    document.documentElement.classList.toggle('dark');
   }
   ///////////////////////////////////////////////
   return <p className="buttons">
