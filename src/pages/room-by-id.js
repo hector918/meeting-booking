@@ -65,7 +65,7 @@ export default function RoomById() {
             <div className="column ">
               <BookingForm
                 meetingRoomId={id}
-                book_an_room={book_an_room}
+                submit_booking={book_an_room}
                 bookingScrollIntoView={bookingId => bookingScrollIntoView(bookingId)}
                 pre_startDate={startDate}
                 pre_endDate={endDate}

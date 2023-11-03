@@ -11,6 +11,7 @@ import AuthWaitingSessionPage from './pages/auth-waiting-session-page';
 // import './asset/bulma/bulma.sass';
 import './asset/bulma/css/bulma.min.css';
 import './asset/bulma-timeline.min.css';
+import BookingEdit from './pages/booking-edit';
 ///////////////////////////////////////////////////
 function App() {
   ///////////////////////////////////////////////////
@@ -29,6 +30,7 @@ function App() {
           <Route path="/bookings/:id" element={<><Navbar /><BookingById /></>} />
           <Route path="/about" element={<><About /></>} />
           <Route path="/home" element={<><Navbar /><Home /></>} />
+          <Route path="/bookings/edit/:id" element={<><Navbar /><BookingEdit /></>} />
         </Routes>
       </Router>
     </div>
