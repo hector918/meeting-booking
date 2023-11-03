@@ -23,7 +23,7 @@ export default function BookingListPage() {
     });
   }, []);
   ///////////////////////////////////////////
-  return <div className="section">
+  return <div className="section container is-max-desktop">
     {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : <BookingList bookings={bookings} scrollToId={() => { }} />}
   </div>
 }

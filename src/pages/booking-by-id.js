@@ -58,7 +58,7 @@ export default function BookingById() {
     </>
   }
   //////////////////////////////////////////////////
-  return <div className="section">
+  return <div className=" container is-max-desktop"><div className="section" >
     {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : render()}
     {booking.roomInfo && <div ref={cancelModal} className="modal">
       <div className="modal-background"></div>
@@ -89,5 +89,5 @@ export default function BookingById() {
       <button className="modal-close is-large" aria-label="close" onClick={() => cancelModal.current.classList.toggle("is-active")}></button>
     </div>}
 
-  </div>
+  </div></div>
 }
