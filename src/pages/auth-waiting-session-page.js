@@ -84,11 +84,12 @@ export default function AuthWaitingSessionPage() {
       <div title="You know, you know. You don't know, you don't know." className="content is-small has-text-right blackstone_font is-clickable" style={{
         position: "absolute",
         bottom: "5vh",
-        right: "2vw"
-      }} onClick={handleEastenEggClick}>V0.06</div>
+        right: "2vw",
+        display: "none"
+      }} onClick={handleEastenEggClick}>V0.07</div>
     </div>
 
-    <div className="hero-foot">
+    <div className="hero-foot" style={{ display: "none" }}>
       <nav className="tabs is-fullwidth">
         <div className="container">
           <ul>
