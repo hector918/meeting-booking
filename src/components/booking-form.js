@@ -1,20 +1,50 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 ///////////////////////////////////////////////////
-export default function BookingForm({ meetingRoomId, id, book_an_room, bookingScrollIntoView, pre_startDate, pre_endDate }) {
+export default function BookingForm({ meetingRoomId, bookingInfo, submit_booking, bookingScrollIntoView, pre_startDate, pre_endDate }) {
   const [meetingName, setMeetingName] = useState("");
   const [startDate, setStartDate] = useState(formatDateTime(pre_startDate));
   const [endDate, setEndDate] = useState(formatDateTime(pre_endDate));
   const [datetimeConstraint, setDatetimeConstraint] = useState(30);
   const [meetingNameInputField, startDateInputField, endDateInputField, attendeesInputField, buttonField, attendeesTagsDiv, tagsInput, endDateInput] = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
   const [isLoading, setIsLoading] = useState(false);
+  ///////////////////////////////////////////////
+  useEffect(() => {
+    if (bookingInfo !== undefined && Object.keys(bookingInfo).length > 0) {
+      //editting
+      const { input: meetingNameInput } = getComponentFromFieldSet(meetingNameInputField.current);
+      meetingNameInput.disabled = true;
+      setMeetingName(bookingInfo.meeting_name);
+      const { input: startDateInput } = getComponentFromFieldSet(startDateInputField.current);
+      startDateInput.disabled = true;
+      setStartDate(formatDateTime(new Date(bookingInfo.start_date)));
+      const { input: endDateInput } = getComponentFromFieldSet(endDateInputField.current);
+      setEndDate(formatDateTime(new Date(bookingInfo.end_date)));
+      endDateInput.disabled = true;
+
+      attendeesTagsDiv.current.innerHTML = "";
+      const attendees_list = bookingInfo.attendees.email_list || [];
+      console.log(attendees_list)
+      for (let email of attendees_list) handleAddAttendees(email)
+
+      // setStartDate(bookingInfo.start_date);
+    }
+  }, [bookingInfo])
+
   ////event//////////////////////////////////////
-  const onStartDateChange = evt => {
+  const onStartDateBlur = evt => {
     const newDate = new Date(evt.target.value);
-    setStartDate(evt.target.value);
     endDateInput.current.min = formatDateTime(newDate);
     if (new Date(endDate) <= newDate || !endDate) {
       setEndDate(formatDateTime(new Date(newDate.setMinutes(newDate.getMinutes() + 30))));
     }
+  }
+  const onStartDateChange = evt => {
+    // const newDate = new Date(evt.target.value);
+    setStartDate(evt.target.value);
+    // endDateInput.current.min = formatDateTime(newDate);
+    // if (new Date(endDate) <= newDate || !endDate) {
+    //   setEndDate(formatDateTime(new Date(newDate.setMinutes(newDate.getMinutes() + 30))));
+    // }
   }
   const onTagsInputEnter = evt => {
     if (evt.keyCode === 13) handleAddAttendees(evt.target.value);
@@ -22,7 +52,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
   const mouseClickTagsInputEnter = evt => {
     handleAddAttendees(tagsInput.current.value);
   }
-  const handleAddAttendees = email => {
+  function handleAddAttendees(email) {
     const { input, help } = getComponentFromFieldSet(attendeesInputField.current);
     const elementStatus = ["is-success", "is-warning", "is-danger"];
     input.classList.remove(...elementStatus);
@@ -51,7 +81,8 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
       tagCloseButton.setAttribute("class", "fa fa-times ml-2 is-clickable");
       tagText.innerHTML = email;
       tagCloseButton.addEventListener("click", evt => {
-        div.remove(evt.target);
+        console.log(tag)
+        div.removeChild(tag);
       });
       div.append(tag);
     }
@@ -60,26 +91,29 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
     const tags = attendeesTagsDiv.current.querySelectorAll("span");
     const emails = [];
     for (let tag of tags) emails.push(tag.innerHTML);
+    const emailAddressesInInput = tagsInput.current.value.match(/[\w.-]+@[\w.-]+\.[A-Za-z]{2,}/);
+    if (Array.isArray(emailAddressesInInput)) for (let email of emailAddressesInInput) emails.push(email);
     return emails;
   }
   const handleSubmit = (evt) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const fieldList = {
       meetingName: meetingNameInputField.current, startDate: startDateInputField.current,
       endDate: endDateInputField.current,
       summary: buttonField.current
     }
-    for (let key in fieldList) resetFieldStatus(fieldList[key]);
+
     const form = {
       meetingName: getComponentFromFieldSet(fieldList["meetingName"]).input.value,
       startDate: getComponentFromFieldSet(fieldList["startDate"]).input.value,
       endDate: getComponentFromFieldSet(fieldList["endDate"]).input.value,
       attendees: getAttendees(),
-      meetingRoomId: meetingRoomId
+      meetingRoomId
     }
-    if (id === undefined) {
+    for (let key in fieldList) resetFieldStatus(fieldList[key]);
+    if (bookingInfo === undefined) {
       //new
-      book_an_room(form, res => {
+      submit_booking(form, res => {
         if (res.error !== undefined) {
           //error
           const { help } = getComponentFromFieldSet(buttonField.current);
@@ -115,25 +149,38 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
 
     } else {
       //edit
+      submit_booking(form, res => {
+        console.log(res);
+      })
+      console.log(bookingInfo);
 
     }
     setIsLoading(false);
   }
 
   const handleReset = (evt) => {
-    const fieldList = {
-      meetingName: meetingNameInputField.current,
-      startDate: startDateInputField.current,
-      endDate: endDateInputField.current,
-      attendees: attendeesInputField.current,
-      summary: buttonField.current
-    };
-    for (let key in fieldList) resetFieldStatus(fieldList[key]);
-    attendeesTagsDiv.current.innerHTML = "";
-    tagsInput.current.value = "";
-    setMeetingName("");
-    setStartDate("");
-    setEndDate("");
+    if (bookingInfo === undefined) {
+      const fieldList = {
+        meetingName: meetingNameInputField.current,
+        startDate: startDateInputField.current,
+        endDate: endDateInputField.current,
+        attendees: attendeesInputField.current,
+        summary: buttonField.current
+      };
+      for (let key in fieldList) resetFieldStatus(fieldList[key]);
+      attendeesTagsDiv.current.innerHTML = "";
+      tagsInput.current.value = "";
+      setMeetingName("");
+      setStartDate("");
+      setEndDate("");
+    } else {
+      attendeesTagsDiv.current.innerHTML = "";
+      const attendees_list = bookingInfo.attendees.email_list || [];
+      console.log(attendees_list)
+      for (let email of attendees_list) handleAddAttendees(email)
+
+    }
+
   }
   ////datetime helper//////////////////////////////
   const getFutureDate = (future = datetimeConstraint) => {
@@ -159,6 +206,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
     input?.classList.remove(...elementStatus);
     help?.classList.remove(...elementStatus);
     help.innerHTML = "";
+    tagsInput.current.value = "";
   }
   function getComponentFromFieldSet(parentField) {
     return {
@@ -199,6 +247,7 @@ export default function BookingForm({ meetingRoomId, id, book_an_room, bookingSc
           max={formatDateTime(getFutureDate())}
           onChange={onStartDateChange}
           value={startDate}
+          onBlur={onStartDateBlur}
         />
         <span className="icon is-small is-left">
           <i className="fa fa-calendar" aria-hidden="true"></i>

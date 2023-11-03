@@ -6,7 +6,9 @@ let default_fetch_options = {
 function error_handle(error) {
   console.error(error);
 }
-
+function fetch_patch(url, fetchOptions, callback) {
+  fetch_post(url, fetchOptions, callback, 'PATCH');
+}
 function fetch_post(url, fetchOptions, callback, method = 'POST') {
 
   fetchOptions.method = method;
@@ -111,6 +113,10 @@ function getBookingById(bookingId, callback) {
 function cancelBookingById(bookingId, callback) {
   fetch_delete(`${API}/api/bookings/${bookingId}`, callback);
 }
+function updateBookingById(bookingId, form, callback) {
+  const body = { body: JSON.stringify(form) };
+  fetch_patch(`${API}/api/bookings/${bookingId}`, body, callback);
+}
 ////////////////////////////////////////////////////////
 export default {
   getUserProfile,
@@ -123,5 +129,6 @@ export default {
   getBookingByRoomId,
   getAllBookings,
   getBookingById,
-  cancelBookingById
+  cancelBookingById,
+  updateBookingById
 }

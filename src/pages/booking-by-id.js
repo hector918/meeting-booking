@@ -27,6 +27,9 @@ export default function BookingById() {
       setIsLoading(false);
     })
   }
+  const handleEditClick = (evt) => {
+    navigate('/bookings/edit/' + id);
+  }
   //////////////////////////////////////////////////
   useEffect(() => {
     setIsLoading(true);
@@ -47,6 +50,7 @@ export default function BookingById() {
           <BookingDetail booking={booking} />
         </div></div>
         <footer className="card-footer">
+          <button className="card-footer-item is-clickable" onClick={handleEditClick} disabled={!bookingOwner}>Edit booking</button>
           <button className="card-footer-item is-clickable" onClick={handleCancelClick} disabled={!bookingOwner}>Cancel booking</button>
         </footer>
       </div>
