@@ -4,7 +4,7 @@ import RoomForm from "../components/room-form";
 export default function CreateNewRoom() {
 
   ////////////////////////////////////////////
-  return <div>
+  return <div className=" container is-max-desktop">
     <RoomForm />
   </div>
 }

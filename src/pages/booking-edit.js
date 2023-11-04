@@ -31,7 +31,7 @@ export default function BookingEdit() {
     })
   }
   //////////////////////////////////////////
-  return <div>
+  return <div className=" container is-max-desktop">
     {isLoading ? <i className="fa fa-spinner fa-spin" aria-hidden="true"></i> : <BookingForm
       bookingInfo={bookingInfo} submit_booking={update_booking}
 

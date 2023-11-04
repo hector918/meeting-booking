@@ -81,7 +81,7 @@ export default function RoomById() {
     }
   }
   ////////////////////////////////////////////
-  return <div>
+  return <div className=" container is-max-desktop">
     {render()}
   </div>
 }
